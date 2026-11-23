@@ -1,230 +1,31 @@
-<!--
-  ╔══════════════════════════════════════════════════════════╗
-  ║                    COMO EDITAR                          ║
-  ╠══════════════════════════════════════════════════════════╣
-  ║                                                         ║
-  ║  🔗 TROCAR LINKS:                                       ║
-  ║     Procure os <article class="link-card"> abaixo.      ║
-  ║     Em cada card, edite o atributo data-link="..."      ║
-  ║     e o href="..." do <a class="btn">.                  ║
-  ║                                                         ║
-  ║  📸 TROCAR IMAGENS:                                     ║
-  ║     Coloque as imagens na pasta /assets/ com os nomes:  ║
-  ║     • principal.png  → foto do hero                     ║
-  ║     • card-1.png     → imagem do card 1                ║
-  ║     • card-2.png     → imagem do card 2                ║
-  ║     • sobre.png      → foto da seção "Quem é"          ║
-  ║                                                         ║
-  ║  📱 TROCAR @INSTAGRAM:                                   ║
-  ║     Busque "pilatesgabixavier" e substitua pelo @.      ║
-  ║     São 3 lugares: topbar, footer e aria-labels.        ║
-  ║                                                         ║
-  ║  ✏️  TROCAR TEXTOS:                                      ║
-  ║     Edite os <h2>, <p>, <span> dentro de cada seção.    ║
-  ║                                                         ║
-  ╚══════════════════════════════════════════════════════════╝
--->
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Gabi Xavier — Pilates &amp; Fisioterapia</title>
-    <meta
-      name="description"
-      content="Gabi Xavier — Fisioterapeuta e instrutora de Pilates em Itajubá MG. +10 anos transformando corpos e mentes."
-    />
-    <meta name="theme-color" content="#e8d5c4" />
-    <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />    <!-- Fontes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,600;1,700&family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Pilates e Fisioterapia em Itajubá, MG | Studio GX · Gabi Xavier</title>
+    <meta name="description" content="No Studio GX, em Itajubá, Gabi Xavier conduz aulas presenciais de Pilates em aparelhos, fisioterapia e Recovery GX, além do curso online Desafio Pilates 8 GX para praticar em casa do iniciante ao avançado." />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="theme-color" content="#f4efe7" />
+    <link rel="canonical" href="https://www.gabixavier.net.br/" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="preload" href="/fonts/cormorant-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/cormorant-italic.woff2" as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Gabi Xavier · Studio GX" />
+    <meta property="og:title" content="Pilates e Fisioterapia em Itajubá | Gabi Xavier" />
+    <meta property="og:description" content="Pilates e fisioterapia presencial em Itajubá no Studio GX e curso online Desafio Pilates 8 GX para praticar em casa com Gabi Xavier." />
+    <meta property="og:url" content="https://www.gabixavier.net.br/" />
+    <meta property="og:image" content="https://www.gabixavier.net.br/images/social.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Gabi Xavier no Studio GX, estúdio de Pilates e fisioterapia em Itajubá" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MedicalClinic","@id":"https://www.gabixavier.net.br/#clinic","name":"Studio GX · Gabi Xavier","description":"Estúdio de Pilates em aparelhos, fisioterapia e Recovery GX no bairro São Vicente, em Itajubá, MG. Atendimento particular, convênios e parcerias, além do programa online Desafio Pilates 8 GX.","url":"https://www.gabixavier.net.br/","logo":"https://www.gabixavier.net.br/images/gx-mark.webp","image":"https://www.gabixavier.net.br/images/social.jpg","telephone":"+55-35-99803-6832","email":"gab_xavier@hotmail.com","medicalSpecialty":"Physiotherapy","founder":{"@id":"https://www.gabixavier.net.br/#gabi-xavier"},"areaServed":{"@type":"City","name":"Itajubá"},"hasMap":"https://www.google.com/maps/search/?api=1&query=Eduardo+Piquet+78+S%C3%A3o+Vicente+Itajub%C3%A1+MG","address":{"@type":"PostalAddress","streetAddress":"Rua Eduardo Piquet, 78, São Vicente","addressLocality":"Itajubá","addressRegion":"MG","addressCountry":"BR"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday"],"opens":"07:00","closes":"20:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"07:00","closes":"10:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"16:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"10:00"}],"contactPoint":{"@type":"ContactPoint","telephone":"+55-35-99803-6832","contactType":"customer service","areaServed":"BR","availableLanguage":"Portuguese"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"68","bestRating":"5","worstRating":"1"},"sameAs":["https://www.instagram.com/pilatesgabixavier/","https://www.pilatesgabixavier.com.br/landing"]},{"@type":"Person","@id":"https://www.gabixavier.net.br/#gabi-xavier","name":"Gabi Xavier","alternateName":"Gabriela Maria Gonçalves Xavier","jobTitle":"Fisioterapeuta e Instrutora de Pilates","description":"Fisioterapeuta e instrutora de Pilates com mais de 11 anos de experiência, fundadora do Studio GX em Itajubá e criadora do curso online Desafio Pilates 8 GX.","url":"https://www.gabixavier.net.br/","image":"https://www.gabixavier.net.br/images/gabi-sobre-960.webp","worksFor":{"@id":"https://www.gabixavier.net.br/#clinic"},"sameAs":["https://www.instagram.com/pilatesgabixavier/","https://www.pilatesgabixavier.com.br/landing"]},{"@type":"Course","@id":"https://www.pilatesgabixavier.com.br/landing#course","name":"Desafio Pilates 8 GX: Transformação em Casa","description":"Curso 100% online de Pilates em casa conduzido por Gabi Xavier, com 3 módulos completos, mais de 15 videoaulas em alta definição, rotinas de 10 a 45 minutos sem aparelhos, progressão do iniciante ao avançado, acesso vitalício e comunidade exclusiva.","url":"https://www.pilatesgabixavier.com.br/landing","inLanguage":"pt-BR","educationalLevel":"Iniciante ao Avançado","provider":{"@id":"https://www.gabixavier.net.br/#clinic"},"creator":{"@id":"https://www.gabixavier.net.br/#gabi-xavier"},"teaches":["Fortalecimento do corpo todo no método Pilates","Pilates funcional para postura, mobilidade e flexibilidade","Tonificação e definição de braços e pernas","Consciência corporal e prevenção de dores"],"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","inLanguage":"pt-BR","instructor":{"@id":"https://www.gabixavier.net.br/#gabi-xavier"}},"syllabusSections":[{"@type":"Syllabus","name":"Módulo 01 — Fortalecimento do Corpo Todo","description":"Videoaulas completas focadas no fortalecimento integral, resistência, estabilidade, equilíbrio e consciência corporal."},{"@type":"Syllabus","name":"Módulo 02 — Pilates Funcional","description":"Exercícios que combinam Pilates clássico com movimentos funcionais para postura, flexibilidade, mobilidade e prevenção de dores."},{"@type":"Syllabus","name":"Módulo 03 — Braços e Pernas","description":"Videoaulas direcionadas para tonificação, definição e força funcional de membros superiores e inferiores."}]},{"@type":"FAQPage","@id":"https://www.gabixavier.net.br/#pilates-online-faq","mainEntity":[{"@type":"Question","name":"Quem pode fazer o Desafio Pilates 8 GX?","acceptedAnswer":{"@type":"Answer","text":"Qualquer pessoa que queira ganhar força, flexibilidade e aliviar dores praticando Pilates em casa. As aulas têm progressão do iniciante ao avançado, então você começa no nível em que está hoje e avança conforme o corpo responde."}},{"@type":"Question","name":"Preciso comprar aparelhos ou acessórios para começar?","acceptedAnswer":{"@type":"Answer","text":"Não. Todas as rotinas principais foram montadas para fazer em casa sem aparelhos. Se um dia você quiser usar algum acessório para variar os treinos, há aulas opcionais para essa fase."}},{"@type":"Question","name":"Quanto tempo dura cada aula e por quanto tempo o acesso fica liberado?","acceptedAnswer":{"@type":"Answer","text":"Há aulas de 10, 20, 30 e 45 minutos, para caber tanto nos dias corridos quanto nos dias mais tranquilos. Depois da inscrição na página oficial, o acesso é vitalício, com atualizações futuras, comunidade de alunas e garantia de 7 dias."}}]}]}</script>
   </head>
   <body>
-    <!-- Topbar -->
-    <header class="topbar container">
-      <a
-        class="ig-pill"
-        href="https://instagram.com/pilatesgabixavier"
-        target="_blank"
-        rel="noopener"
-        aria-label="Instagram @pilatesgabixavier"
-      >
-        <svg class="ig" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18 6.2a1.2 1.2 0 1 1-1.2 1.2A1.2 1.2 0 0 1 18 6.2z"
-          />
-        </svg>
-        <span>@pilatesgabixavier</span>
-      </a>
-    </header>
-
-    <main>
-      <!-- ═══════ HERO ═══════ -->
-      <section class="hero">
-        <div class="hero-visual container">
-          <img
-            class="hero-img"
-            src="assets/gabiInicial_semfundo.png"
-            alt="Gabi Xavier"
-          />
-          <div class="hero-overlay-text">
-            <h1 class="hero-title">Gabi Xavier</h1>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════ CARDS / LINKS ═══════ -->
-      <section id="links" class="links container">
-        <!-- Card 1 — Agende sua Aula Presencial -->
-        <article
-          class="link-card glass"
-          role="link"
-          tabindex="0"
-          aria-label="Agendar aula de Pilates presencial"
-          data-link="https://wa.me/5535998036832?text=Ol%C3%A1%20Gabi!%20Quero%20agendar%20minha%20aula%20de%20Pilates%20presencial%20%F0%9F%A7%98%E2%80%8D%E2%99%80%EF%B8%8F"
-        >
-          <div class="media gradient">
-            <img src="assets/studio.jpeg" alt="Aula Presencial" />
-          </div>
-          <div class="content">
-            <h2 class="card-title">
-              <span class="line1">AGENDE SUA AULA</span>
-              <span class="line2">AVALIATIVA PRESENCIAL</span>
-            </h2>
-            <a
-              class="btn"
-              href="https://wa.me/5535998036832?text=Ol%C3%A1%20Gabi!%20Quero%20agendar%20minha%20aula%20de%20Pilates%20presencial%20%F0%9F%A7%98%E2%80%8D%E2%99%80%EF%B8%8F"
-              target="_blank"
-              rel="noopener"
-              >Agendar</a
-            >
-          </div>
-        </article>
-
-        <!-- Card 2 — Curso Online -->
-        <article
-          class="link-card glass"
-          role="link"
-          tabindex="0"
-          aria-label="Acessar curso Pilates em Casa"
-          data-link="https://www.pilatesgabixavier.com.br/landing"
-        >
-          <div class="media gradient">
-            <img src="assets/gabiGrupoWpp.jpeg" alt="Curso Pilates em Casa" />
-          </div>
-          <div class="content">
-            <h2 class="card-title">
-              <span class="line1">CONHEÇA O DESAFIO</span>
-              <span class="line2"
-                >PILATES 8GX: TRANSFORMAÇÃO EM 90 DIAS</span
-              >
-            </h2>
-            <a
-              class="btn"
-              href="https://www.pilatesgabixavier.com.br/landing"
-              target="_blank"
-              rel="noopener"
-              >Acessar</a
-            >
-          </div>
-        </article>
-
-      <!-- ═══════ SOBRE / QUEM É ═══════ -->
-      <section id="about" class="about-section">
-        <div class="container">
-          <div class="about-wrap">
-            <div class="about-media">
-              <img src="assets/quem-e-gabi.JPG" alt="Gabi Xavier" />
-            </div>
-            <div class="about-copy">
-              <h2 class="about-eyebrow">QUEM É</h2>
-              <h3 class="about-title">GABI XAVIER</h3>
-              <p>
-                Oii, eu sou a Gabi. Tenho 34 anos e sou formada em Fisioterapia
-                a 11 anos.
-              </p>
-              <p>
-                Ao longo da minha trajetória, venho desenvolvendo habilidades
-                técnicas e estratégicas que me permitem entregar resultados
-                consistentes, sempre com foco em qualidade, eficiência e
-                inovação.
-              </p>
-              <p>
-                Sou movida por desafios e acredito que cada projeto é uma
-                oportunidade de criar algo relevante e gerar impacto positivo.
-                Minha experiência me ensinou a unir conhecimento técnico com
-                visão prática, buscando sempre as melhores soluções para cada
-                necessidade.
-              </p>
-              <p>
-                Prezo pela transparência, comprometimento e evolução constante.
-                Estou sempre em busca de aprendizado, acompanhando as tendências
-                da minha área para oferecer um trabalho atualizado e alinhado
-                com as demandas do mercado.
-              </p>
-              <p>
-                Se você procura uma profissional dedicada, responsável e focada
-                em resultados, será um prazer conversar e entender como posso
-                contribuir com o seu projeto.
-              </p>
-              <p>Seja bem-vinda. Vamos começar?</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- ═══════ FOOTER ═══════ -->
-    <footer class="site-footer">
-      <div class="footer container">
-        <h2 class="footer-wordmark">Gabi Xavier</h2>
-
-        <div class="footer-meta">
-          <p>&copy; <span id="y"></span> Gabi Xavier</p>
-          <a
-            class="footer-ig"
-            href="https://instagram.com/pilatesgabixavier"
-            target="_blank"
-            rel="noopener"
-          >
-            <svg class="ig" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18 6.2a1.2 1.2 0 1 1-1.2 1.2A1.2 1.2 0 0 1 18 6.2z"
-              />
-            </svg>
-            <span>@pilatesgabixavier</span>
-          </a>
-        </div>
-
-        <p class="credit">
-          Desenvolvido por
-          <a
-            class="credit-link"
-            href="https://www.instagram.com/mateus_bonette/"
-            target="_blank"
-            rel="noopener"
-            aria-label="Abrir Instagram de Mateus Bonette"
-          >
-            @mateus_bonette
-          </a>
-        </p>
-      </div>
-    </footer>
-
-    <script src="script.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

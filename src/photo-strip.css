@@ -1,0 +1,54 @@
+/* Faixa de fotos em movimento contínuo, no ritmo da Azzo (~7,5s por foto). */
+.studio-photo-strip {
+  margin-top: 88px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+}
+
+.studio-photo-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: studio-photo-scroll 180s linear infinite;
+  will-change: transform;
+}
+
+.studio-photo-track img {
+  height: 336px;
+  width: auto;
+  margin-right: 24px;
+  border-radius: 16px;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.care-section-wrap {
+  margin-top: 64px;
+}
+
+@keyframes studio-photo-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 760px) {
+  .studio-photo-strip {
+    margin-top: 56px;
+  }
+
+  .studio-photo-track img {
+    height: 220px;
+    margin-right: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-photo-strip {
+    overflow-x: auto;
+  }
+}
