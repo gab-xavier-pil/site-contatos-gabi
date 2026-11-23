@@ -2,10 +2,9 @@
    GOOGLE 5-STAR REVIEWS SECTION & ANIMATED CAROUSEL (Studio GX)
    ═══════════════════════════════════════════════════════════ */
 
-.reviews-section {
+.reviews-section.section {
   position: relative;
-  padding-top: 108px;
-  padding-bottom: 52px;
+  padding: 108px 5% 16px;
 }
 
 .reviews-ambient {
@@ -680,9 +679,9 @@
 
 /* ── Responsive Breakpoints ──────────────────── */
 @media (max-width: 1100px) {
-  .reviews-section {
+  .reviews-section.section {
     padding-top: 84px;
-    padding-bottom: 40px;
+    padding-bottom: 12px;
   }
   .reviews-header {
     grid-template-columns: 1fr;
@@ -699,9 +698,8 @@
 }
 
 @media (max-width: 760px) {
-  .reviews-section {
-    padding-top: 64px;
-    padding-bottom: 24px;
+  .reviews-section.section {
+    padding: 64px 5.5% 8px;
   }
   .reviews-eyebrow {
     font-size: clamp(9.5px, 2.7vw, 11px);
