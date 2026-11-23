@@ -751,9 +751,9 @@ export default function App() {
             <svg className="hero-circle hero-circle--outer" viewBox="0 0 640 640" fill="none">
               <defs>
                 <linearGradient id="gx-grad-gold" x1="0" y1="0" x2="640" y2="640" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="#b99b74" stopOpacity="0" />
-                  <stop offset="45%" stopColor="#b99b74" stopOpacity="0.45" />
-                  <stop offset="100%" stopColor="#392c26" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#cfa3cf" stopOpacity="0" />
+                  <stop offset="45%" stopColor="#dcbadb" stopOpacity="0.55" />
+                  <stop offset="100%" stopColor="#2e1c2e" stopOpacity="0" />
                 </linearGradient>
               </defs>
               <circle cx="320" cy="320" r="318" stroke="url(#gx-grad-gold)" strokeWidth="1.5" />

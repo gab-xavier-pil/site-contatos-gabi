@@ -111,7 +111,7 @@ header.site-header.is-scrolled .topbar {
   justify-content: center;
   width: 25px;
   height: 25px;
-  border: 1px solid rgba(185, 155, 116, 0.55);
+  border: 1px solid rgba(207, 163, 207, 0.55);
   border-radius: 50%;
   color: var(--paper);
   flex-shrink: 0;
@@ -153,9 +153,9 @@ header.site-header.is-scrolled .header-pill-wrap {
   margin: 0 auto;
   padding: 10px 22px 10px 26px;
   border-radius: 999px;
-  background: rgba(244, 239, 231, 0.82);
-  border: 1px solid rgba(185, 155, 116, 0.38);
-  box-shadow: 0 10px 34px rgba(57, 44, 38, 0.07);
+  background: rgba(250, 246, 250, 0.82);
+  border: 1px solid rgba(207, 163, 207, 0.38);
+  box-shadow: 0 10px 34px rgba(46, 28, 46, 0.07);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   transition: padding 350ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -258,7 +258,7 @@ header.site-header .pill-nav a::after {
   height: 42px;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid rgba(57, 44, 38, 0.3);
+  border: 1.5px solid rgba(46, 28, 46, 0.3);
   border-radius: 50%;
   background: transparent;
   flex-shrink: 0;
@@ -294,8 +294,8 @@ header.site-header .pill-nav a::after {
   inset: 0;
   z-index: 998;
   background:
-    radial-gradient(ellipse 70% 50% at 85% 15%, rgba(185, 155, 116, 0.18), transparent 65%),
-    radial-gradient(ellipse 60% 50% at 10% 90%, rgba(136, 102, 64, 0.16), transparent 65%),
+    radial-gradient(ellipse 70% 50% at 85% 15%, rgba(207, 163, 207, 0.18), transparent 65%),
+    radial-gradient(ellipse 60% 50% at 10% 90%, rgba(118, 67, 117, 0.16), transparent 65%),
     var(--cocoa);
   color: var(--paper);
   padding: 96px clamp(24px, 7vw, 64px) 40px;
@@ -320,8 +320,8 @@ header.site-header .pill-nav a::after {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  border: 1.5px solid rgba(221, 208, 191, 0.28);
-  background: rgba(244, 239, 231, 0.05);
+  border: 1.5px solid rgba(232, 209, 231, 0.28);
+  background: rgba(250, 246, 250, 0.05);
   color: var(--paper);
   display: flex;
   align-items: center;
@@ -393,7 +393,7 @@ header.site-header .pill-nav a::after {
 .mobile-nav-footer {
   margin-top: 32px;
   padding-top: 24px;
-  border-top: 1px solid rgba(221, 208, 191, 0.16);
+  border-top: 1px solid rgba(232, 209, 231, 0.16);
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -435,7 +435,7 @@ header.site-header .pill-nav a::after {
   }
   .topbar-contacts a:hover .topbar-icon {
     border-color: var(--paper);
-    background: rgba(244, 239, 231, 0.12);
+    background: rgba(250, 246, 250, 0.12);
   }
   header.site-header .pill-nav a:hover {
     color: var(--gold-ink);
@@ -449,14 +449,14 @@ header.site-header .pill-nav a::after {
     border-color: var(--gold-ink);
     color: var(--paper);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(136, 102, 64, 0.32);
+    box-shadow: 0 8px 24px rgba(118, 67, 117, 0.32);
   }
   .btn-header-cta:hover svg {
     transform: translateX(3px);
   }
   .mobile-nav-close:hover {
     border-color: var(--paper);
-    background: rgba(244, 239, 231, 0.12);
+    background: rgba(250, 246, 250, 0.12);
   }
   .mobile-nav-list a:hover {
     color: var(--sand);

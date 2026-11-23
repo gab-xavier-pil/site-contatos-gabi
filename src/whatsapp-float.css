@@ -13,7 +13,7 @@
   border-radius: 50%;
   background: var(--cocoa);
   color: var(--paper);
-  box-shadow: 0 10px 30px rgba(57, 44, 38, 0.32);
+  box-shadow: 0 10px 30px rgba(46, 28, 46, 0.32);
   transform: translate3d(0, var(--shift), 0);
   transition:
     background 240ms ease,
@@ -48,7 +48,7 @@
   transform: translateY(-50%) translateX(8px);
   background: var(--cocoa);
   color: var(--paper);
-  border: 1px solid rgba(185, 155, 116, 0.45);
+  border: 1px solid rgba(207, 163, 207, 0.45);
   font-family: var(--sans);
   font-size: 12px;
   font-weight: 600;
@@ -56,7 +56,7 @@
   white-space: nowrap;
   padding: 8px 14px;
   border-radius: 999px;
-  box-shadow: 0 8px 24px rgba(57, 44, 38, 0.22);
+  box-shadow: 0 8px 24px rgba(46, 28, 46, 0.22);
   pointer-events: none;
   opacity: 0;
   transition:
@@ -127,7 +127,7 @@
     background: var(--gold-ink);
     border-color: var(--paper);
     animation-play-state: paused;
-    box-shadow: 0 14px 36px rgba(136, 102, 64, 0.45);
+    box-shadow: 0 14px 36px rgba(118, 67, 117, 0.45);
     transform: translate3d(0, calc(var(--shift) - 3px), 0) scale(1.08);
   }
   .whatsapp-float:hover::before,

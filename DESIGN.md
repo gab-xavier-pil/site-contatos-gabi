@@ -2,14 +2,14 @@
 name: Gabi Xavier — Movimento com cuidado
 description: Identidade editorial acolhedora para o Studio GX, com fotografias reais e convite direto à conversa.
 colors:
-  paper: "#f4efe7"
-  sand: "#ddd0bf"
-  cocoa: "#392c26"
-  taupe: "#796356"
-  champagne: "#b99b74"
-  gold-ink: "#886640"
-  line: "#d7cbbc"
-  gold-on-cocoa: "#d2b893"
+  paper: "#faf6fa"
+  sand: "#e8d1e7"
+  cocoa: "#2e1c2e"
+  taupe: "#685068"
+  champagne: "#cfa3cf"
+  gold-ink: "#764375"
+  line: "#e3cee2"
+  gold-on-cocoa: "#dcbadb"
 typography:
   display:
     fontFamily: "Cormorant Garamond, Georgia, serif"
@@ -121,24 +121,24 @@ Fontes de verdade: `src/styles.css`, `src/App.jsx`, `docs/design-direction.md` e
 
 ## Colors
 
-A paleta usa neutros quentes como estrutura; o dourado pontua a leitura e os estados de interação.
+A paleta combina tons lavanda e malva solicitados pela cliente (`#e8d1e7`, `#dcbadb`, `#cfa3cf`) com ameixa profundo editorial para garantir contraste e legibilidade.
 
 ### Primary
 
-- **Cacau — `cocoa`:** texto principal, botão de agendamento e fundo da seção sobre a Gabi.
-- **Dourado de leitura — `gold-ink`:** itálicos dos títulos sobre papel, observações de serviços, foco e hover do botão principal.
+- **Ameixa Profundo — `cocoa` (`#2e1c2e`):** texto principal, botão de agendamento e fundo da seção sobre a Gabi.
+- **Malva de Leitura — `gold-ink` (`#764375`):** itálicos dos títulos sobre papel, observações de serviços, foco e hover do botão principal.
 
 ### Secondary
 
-- **Champagne — `champagne`:** linhas de apoio, contornos dos controles e pequenos detalhes gráficos.
-- **Dourado sobre cacau — `gold-on-cocoa`:** ênfase itálica do título na seção escura. Está implementado como valor local, sem variável CSS própria.
+- **Orquídea Suave — `champagne` (`#cfa3cf`):** linhas de apoio, contornos dos controles e pequenos detalhes gráficos.
+- **Lilás sobre Ameixa — `gold-on-cocoa` (`#dcbadb`):** ênfase itálica do título e detalhes na seção escura.
 
 ### Neutral
 
-- **Papel — `paper`:** fundo principal, texto claro e botão da seção escura.
-- **Areia — `sand`:** fundos de imagem, legenda do retrato e textos secundários sobre cacau.
-- **Taupe — `taupe`:** parágrafos e informação secundária sobre papel.
-- **Linha — `line`:** divisórias de navegação, abas, rodapé e barra móvel.
+- **Papel Lavanda — `paper` (`#faf6fa`):** fundo principal off-white sutil, texto claro e botão da seção escura.
+- **Lavanda Clara — `sand` (`#e8d1e7`):** fundos de imagem, legenda do retrato, realces suaves e textos secundários sobre ameixa.
+- **Malva Acinzentado — `taupe` (`#685068`):** parágrafos e informação secundária sobre papel.
+- **Linha — `line` (`#e3cee2`):** divisórias de navegação, abas, rodapé e barra móvel.
 
 **The Dourado Legível Rule.** Use `gold-ink` para texto dourado sobre papel. `champagne` é o acento de contorno e detalhe; não substitui o token de leitura.
 

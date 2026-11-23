@@ -26,8 +26,8 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse 46% 40% at 15% 42%, rgba(185, 155, 116, 0.14), transparent 72%),
-    radial-gradient(ellipse 42% 36% at 88% 22%, rgba(221, 208, 191, 0.34), transparent 70%);
+    radial-gradient(ellipse 46% 40% at 15% 42%, rgba(207, 163, 207, 0.14), transparent 72%),
+    radial-gradient(ellipse 42% 36% at 88% 22%, rgba(232, 209, 231, 0.34), transparent 70%);
 }
 
 .course-section > *:not(.course-ambient) {
@@ -53,8 +53,8 @@
   font-size: 12px;
   padding: 7px 16px;
   border-radius: 999px;
-  background: rgba(221, 208, 191, 0.38);
-  border: 1px solid rgba(185, 155, 116, 0.36);
+  background: rgba(232, 209, 231, 0.38);
+  border: 1px solid rgba(207, 163, 207, 0.36);
 }
 
 .course-header h2 {
@@ -171,7 +171,7 @@
   margin-left: -57%;
   margin-top: -57%;
   border-radius: 50%;
-  border: 1px solid rgba(185, 155, 116, 0.52);
+  border: 1px solid rgba(207, 163, 207, 0.52);
   pointer-events: none;
   transform-style: preserve-3d;
   transform: translateZ(-54px) rotateX(68deg) rotateY(-12deg);
@@ -199,8 +199,8 @@
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    rgba(57, 44, 38, 0.25) 0%,
-    rgba(57, 44, 38, 0.1) 50%,
+    rgba(46, 28, 46, 0.25) 0%,
+    rgba(46, 28, 46, 0.1) 50%,
     transparent 76%
   );
   filter: blur(13px);
@@ -228,7 +228,7 @@
   overflow: hidden;
   background: var(--cocoa);
   color: var(--paper);
-  border: 1px solid rgba(210, 184, 147, 0.4);
+  border: 1px solid rgba(220, 186, 219, 0.4);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -244,8 +244,8 @@
   transform: translate3d(0, 0, 26px) rotateZ(0deg);
   opacity: 1;
   box-shadow:
-    0 28px 66px rgba(57, 44, 38, 0.24),
-    0 1px 0 rgba(244, 239, 231, 0.18) inset;
+    0 28px 66px rgba(46, 28, 46, 0.24),
+    0 1px 0 rgba(250, 246, 250, 0.18) inset;
   cursor: default;
 }
 
@@ -254,7 +254,7 @@
   transform: translate3d(24px, -16px, -18px) rotateZ(3.2deg) scale(0.96);
   opacity: 0.78;
   filter: saturate(0.84) brightness(0.92);
-  box-shadow: 0 18px 42px rgba(57, 44, 38, 0.16);
+  box-shadow: 0 18px 42px rgba(46, 28, 46, 0.16);
   cursor: pointer;
 }
 
@@ -263,7 +263,7 @@
   transform: translate3d(-18px, -24px, -46px) rotateZ(-2.8deg) scale(0.92);
   opacity: 0.56;
   filter: saturate(0.75) brightness(0.85);
-  box-shadow: 0 12px 30px rgba(57, 44, 38, 0.12);
+  box-shadow: 0 12px 30px rgba(46, 28, 46, 0.12);
   cursor: pointer;
 }
 
@@ -281,10 +281,10 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(39, 29, 24, 0.54) 0%,
-    rgba(39, 29, 24, 0.1) 34%,
-    rgba(39, 29, 24, 0.72) 68%,
-    rgba(30, 21, 17, 0.96) 100%
+    rgba(34, 19, 34, 0.54) 0%,
+    rgba(34, 19, 34, 0.1) 34%,
+    rgba(34, 19, 34, 0.72) 68%,
+    rgba(24, 13, 24, 0.96) 100%
   );
 }
 
@@ -294,8 +294,8 @@
   pointer-events: none;
   background: radial-gradient(
     circle 360px at var(--gx) var(--gy),
-    rgba(244, 239, 231, 0.2) 0%,
-    rgba(210, 184, 147, 0.08) 38%,
+    rgba(250, 246, 250, 0.2) 0%,
+    rgba(220, 186, 219, 0.08) 38%,
     transparent 70%
   );
   mix-blend-mode: screen;
@@ -337,8 +337,8 @@
   color: var(--paper);
   padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(39, 29, 24, 0.62);
-  border: 1px solid rgba(221, 208, 191, 0.28);
+  background: rgba(34, 19, 34, 0.62);
+  border: 1px solid rgba(232, 209, 231, 0.28);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -368,7 +368,7 @@
 .course-durations-line {
   margin-top: 6px;
   padding-top: 14px;
-  border-top: 1px solid rgba(221, 208, 191, 0.24);
+  border-top: 1px solid rgba(232, 209, 231, 0.24);
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -398,10 +398,10 @@
   gap: 18px;
   padding: 16px 22px;
   border-radius: 20px;
-  background: rgba(244, 239, 231, 0.96);
-  border: 1px solid rgba(185, 155, 116, 0.52);
+  background: rgba(250, 246, 250, 0.96);
+  border: 1px solid rgba(207, 163, 207, 0.52);
   color: var(--cocoa);
-  box-shadow: 0 22px 48px rgba(57, 44, 38, 0.18);
+  box-shadow: 0 22px 48px rgba(46, 28, 46, 0.18);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   transform: translateZ(64px);
@@ -413,7 +413,7 @@
   height: 46px;
   border-radius: 50%;
   background: var(--paper);
-  border: 1px solid rgba(185, 155, 116, 0.55);
+  border: 1px solid rgba(207, 163, 207, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -501,7 +501,7 @@
 .course-module-card {
   border-radius: 22px;
   border: 1px solid var(--line);
-  background: rgba(244, 239, 231, 0.72);
+  background: rgba(250, 246, 250, 0.72);
   transition:
     background 320ms var(--easing-expo),
     border-color 320ms ease,
@@ -511,11 +511,11 @@
 
 .course-module-card.is-active {
   background:
-    radial-gradient(ellipse 75% 85% at 96% 12%, rgba(185, 155, 116, 0.18), transparent 65%),
+    radial-gradient(ellipse 75% 85% at 96% 12%, rgba(207, 163, 207, 0.18), transparent 65%),
     var(--cocoa);
-  border-color: rgba(185, 155, 116, 0.44);
+  border-color: rgba(207, 163, 207, 0.44);
   color: var(--paper);
-  box-shadow: 0 20px 46px rgba(57, 44, 38, 0.16);
+  box-shadow: 0 20px 46px rgba(46, 28, 46, 0.16);
 }
 
 .course-module-trigger {
@@ -603,7 +603,7 @@
   height: 34px;
   margin-top: 2px;
   border-radius: 50%;
-  border: 1px solid rgba(185, 155, 116, 0.5);
+  border: 1px solid rgba(207, 163, 207, 0.5);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -623,7 +623,7 @@
 .course-module-card.is-active .course-mod-chevron {
   transform: rotate(45deg);
   color: var(--gold-on-cocoa);
-  border-color: rgba(210, 184, 147, 0.45);
+  border-color: rgba(220, 186, 219, 0.45);
 }
 
 /* Expansão suave preservando todo o texto no HTML para SEO/AIO/GEO */
@@ -699,7 +699,7 @@
   gap: 5px;
   font-weight: 600;
   color: var(--gold-ink);
-  border-bottom: 1px solid rgba(136, 102, 64, 0.42);
+  border-bottom: 1px solid rgba(118, 67, 117, 0.42);
   padding-bottom: 1px;
   transition:
     color 220ms ease,
@@ -778,7 +778,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid rgba(185, 155, 116, 0.55);
+  border: 1px solid rgba(207, 163, 207, 0.55);
   color: var(--gold-ink);
   display: inline-flex;
   align-items: center;
@@ -852,8 +852,8 @@
     opacity: 0.72;
   }
   .course-module-card:not(.is-active):hover {
-    background: rgba(221, 208, 191, 0.36);
-    border-color: rgba(185, 155, 116, 0.55);
+    background: rgba(232, 209, 231, 0.36);
+    border-color: rgba(207, 163, 207, 0.55);
     transform: translateX(4px);
   }
   .course-inline-link:hover {

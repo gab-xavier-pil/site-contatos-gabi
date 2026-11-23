@@ -14,8 +14,8 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse 46% 38% at 12% 24%, rgba(185, 155, 116, 0.14), transparent 70%),
-    radial-gradient(ellipse 42% 36% at 88% 72%, rgba(221, 208, 191, 0.34), transparent 72%);
+    radial-gradient(ellipse 46% 38% at 12% 24%, rgba(207, 163, 207, 0.14), transparent 70%),
+    radial-gradient(ellipse 42% 36% at 88% 72%, rgba(232, 209, 231, 0.34), transparent 72%);
 }
 
 .reviews-section > *:not(.reviews-ambient) {
@@ -40,8 +40,8 @@
   color: var(--taupe);
   padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(221, 208, 191, 0.36);
-  border: 1px solid rgba(185, 155, 116, 0.34);
+  background: rgba(232, 209, 231, 0.36);
+  border: 1px solid rgba(207, 163, 207, 0.34);
 }
 
 .reviews-g-mini {
@@ -68,11 +68,11 @@
   padding: 24px 26px;
   border-radius: 24px;
   background:
-    radial-gradient(ellipse 90% 80% at 100% 0%, rgba(185, 155, 116, 0.22), transparent 64%),
+    radial-gradient(ellipse 90% 80% at 100% 0%, rgba(207, 163, 207, 0.22), transparent 64%),
     var(--cocoa);
   color: var(--paper);
-  border: 1px solid rgba(185, 155, 116, 0.4);
-  box-shadow: 0 20px 50px rgba(57, 44, 38, 0.14);
+  border: 1px solid rgba(207, 163, 207, 0.4);
+  box-shadow: 0 20px 50px rgba(46, 28, 46, 0.14);
   overflow: hidden;
   transition:
     transform 340ms var(--easing-expo),
@@ -87,7 +87,7 @@
   background: linear-gradient(
     115deg,
     transparent 20%,
-    rgba(244, 239, 231, 0.08) 48%,
+    rgba(250, 246, 250, 0.08) 48%,
     transparent 74%
   );
   transform: translateX(-100%);
@@ -152,7 +152,7 @@
   justify-content: space-between;
   gap: 12px;
   padding-top: 14px;
-  border-top: 1px solid rgba(221, 208, 191, 0.16);
+  border-top: 1px solid rgba(232, 209, 231, 0.16);
 }
 
 .reviews-google-pill {
@@ -202,8 +202,8 @@
   gap: 8px;
   padding: 7px 14px;
   border-radius: 999px;
-  background: rgba(221, 208, 191, 0.28);
-  border: 1px solid rgba(185, 155, 116, 0.32);
+  background: rgba(232, 209, 231, 0.28);
+  border: 1px solid rgba(207, 163, 207, 0.32);
   font-size: 12px;
   font-weight: 500;
   color: var(--cocoa);
@@ -266,9 +266,9 @@
   min-height: 292px;
   padding: 26px 24px 22px;
   border-radius: 24px;
-  background: #faf7f2;
-  border: 1px solid rgba(185, 155, 116, 0.32);
-  box-shadow: 0 12px 32px rgba(57, 44, 38, 0.05);
+  background: #fbf8fb;
+  border: 1px solid rgba(207, 163, 207, 0.32);
+  box-shadow: 0 12px 32px rgba(46, 28, 46, 0.05);
   overflow: hidden;
   cursor: pointer;
   transition:
@@ -292,9 +292,9 @@
 }
 
 .review-card.is-active {
-  background: #fdfbf8;
-  border-color: rgba(136, 102, 64, 0.56);
-  box-shadow: 0 22px 48px rgba(57, 44, 38, 0.11);
+  background: #fefcfe;
+  border-color: rgba(118, 67, 117, 0.56);
+  box-shadow: 0 22px 48px rgba(46, 28, 46, 0.11);
   transform: translateY(-4px);
 }
 
@@ -336,8 +336,8 @@
   gap: 6px;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(221, 208, 191, 0.34);
-  border: 1px solid rgba(185, 155, 116, 0.3);
+  background: rgba(232, 209, 231, 0.34);
+  border: 1px solid rgba(207, 163, 207, 0.3);
   font-size: 11px;
   font-weight: 700;
   color: var(--cocoa);
@@ -491,7 +491,7 @@
   padding: 0;
   border: 0;
   border-radius: 999px;
-  background: rgba(136, 102, 64, 0.24);
+  background: rgba(118, 67, 117, 0.24);
   overflow: hidden;
   flex-shrink: 0;
   transition:
@@ -507,7 +507,7 @@
 
 .review-dot.is-active {
   width: 40px;
-  background: rgba(136, 102, 64, 0.2);
+  background: rgba(118, 67, 117, 0.2);
 }
 
 .review-dot-fill {
@@ -559,8 +559,8 @@
   margin-top: 34px;
   padding: 20px 26px;
   border-radius: 20px;
-  background: rgba(221, 208, 191, 0.28);
-  border: 1px solid rgba(185, 155, 116, 0.34);
+  background: rgba(232, 209, 231, 0.28);
+  border: 1px solid rgba(207, 163, 207, 0.34);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -655,15 +655,15 @@
   .reviews-score-card:hover {
     transform: translateY(-4px);
     border-color: var(--gold-on-cocoa);
-    box-shadow: 0 26px 56px rgba(57, 44, 38, 0.22);
+    box-shadow: 0 26px 56px rgba(46, 28, 46, 0.22);
   }
   .reviews-score-card:hover .reviews-score-link svg {
     transform: translateX(4px);
   }
   .review-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(136, 102, 64, 0.5);
-    box-shadow: 0 20px 44px rgba(57, 44, 38, 0.1);
+    border-color: rgba(118, 67, 117, 0.5);
+    box-shadow: 0 20px 44px rgba(46, 28, 46, 0.1);
   }
   .review-more-btn:hover {
     color: var(--cocoa);
@@ -671,7 +671,7 @@
   .reviews-google-cta:hover {
     background: var(--gold-ink);
     border-color: var(--gold-ink);
-    box-shadow: 0 12px 28px rgba(136, 102, 64, 0.3);
+    box-shadow: 0 12px 28px rgba(118, 67, 117, 0.3);
   }
   .reviews-google-cta:hover svg:last-child {
     transform: translateX(4px);
