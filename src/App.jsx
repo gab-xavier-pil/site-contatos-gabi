@@ -453,6 +453,7 @@ const studioServicesBeforeOnline = [
         width: 960,
         height: 1581,
         position: '50% 46%',
+        fit: 'contain',
       },
       {
         src: '/images/pilates-presencial-02-640.webp',
@@ -460,6 +461,7 @@ const studioServicesBeforeOnline = [
         width: 547,
         height: 961,
         position: '50% 48%',
+        fit: 'contain',
       },
       {
         src: '/images/pilates-presencial-03-640.webp',
@@ -553,26 +555,44 @@ function ServiceMediaSlideshow({ slides, num, label }) {
 
   return (
     <div
-      className="service-story-frame is-slideshow"
+      className={`service-story-frame is-slideshow${slides[current]?.fit === 'contain' ? ' is-portrait' : ''}`}
       role="region"
       aria-roledescription="carrossel"
       aria-label={`Fotos de ${label}`}
     >
-      {slides.map((slide, index) => (
-        <img
-          key={slide.src}
-          className={`service-slide-img${index === current ? ' is-active' : ''}`}
-          src={slide.src}
-          srcSet={slide.srcSet}
-          sizes="(max-width: 760px) 92vw, 46vw"
-          style={slide.position ? { objectPosition: slide.position } : undefined}
-          alt={slide.alt}
-          width={slide.width}
-          height={slide.height}
-          loading="lazy"
-          decoding="async"
-        />
-      ))}
+      {slides.map((slide, index) => {
+        const active = index === current;
+        const contain = slide.fit === 'contain';
+        return (
+          <React.Fragment key={slide.src}>
+            {contain ? (
+              <img
+                className={`service-slide-fill${active ? ' is-active' : ''}`}
+                src={slide.src}
+                srcSet={slide.srcSet}
+                alt=""
+                aria-hidden="true"
+                width={slide.width}
+                height={slide.height}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : null}
+            <img
+              className={`service-slide-img${active ? ' is-active' : ''}${contain ? ' is-contain' : ''}`}
+              src={slide.src}
+              srcSet={slide.srcSet}
+              sizes="(max-width: 760px) 92vw, 46vw"
+              style={!contain && slide.position ? { objectPosition: slide.position } : undefined}
+              alt={slide.alt}
+              width={slide.width}
+              height={slide.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </React.Fragment>
+        );
+      })}
       <span className="service-media-num" aria-hidden="true">
         {num}
       </span>
