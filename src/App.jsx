@@ -7,7 +7,7 @@ import Footer from './Footer.jsx';
 import StudioPhotoStrip from './StudioPhotoStrip.jsx';
 import OnlineCourseSection from './OnlineCourseSection.jsx';
 
-const whatsapp = `https://wa.me/5535998036832?text=${encodeURIComponent('Olá, Gabi! Vim pelo site e gostaria de agendar uma aula de Pilates no estúdio.')}`;
+const whatsapp = `https://wa.me/5535998036832?text=${encodeURIComponent('Olá, Gabi! Vim pelo site e gostaria de agendar uma aula de Pilates no studio.')}`;
 const email = 'gab_xavier@hotmail.com';
 const phone = '(35) 99803-6832';
 const instagram = 'https://www.instagram.com/pilatesgabixavier/';
@@ -287,7 +287,7 @@ const spaces = [
     image: 'studio-detalhes',
     tag: 'ACOLHIMENTO',
     caption: 'Cuidado que aparece em cada detalhe.',
-    alt: 'Ambiente do estúdio com aparelhos organizados, espelhos e iluminação acolhedora',
+    alt: 'Ambiente do studio com aparelhos organizados, espelhos e iluminação acolhedora',
   },
 ];
 
@@ -318,7 +318,7 @@ function StudioGallery() {
 
   return (
     <div className="gallery" role="region" aria-roledescription="carrossel" aria-label="Conheça o Studio GX">
-      <div className="gallery-track" ref={track} tabIndex="0" aria-label="Fotos do estúdio. Use as setas para navegar.">
+      <div className="gallery-track" ref={track} tabIndex="0" aria-label="Fotos do studio. Use as setas para navegar.">
         {spaces.map((space, index) => (
           <figure
             className="gallery-slide"
@@ -394,7 +394,7 @@ const services = [
   {
     num: '01',
     name: 'Pilates',
-    tag: 'Aulas presenciais no estúdio',
+    tag: 'Aulas presenciais no studio',
     title: 'Força e mobilidade no seu ritmo.',
     text: 'Aulas em aparelhos com orientação constante para alinhar a postura, fortalecer a musculatura e dar mais estabilidade aos seus movimentos.',
     highlights: ['Exercícios no seu ritmo', 'Acompanhamento de perto', 'Força, postura e mobilidade'],
@@ -446,10 +446,10 @@ function InteractiveServices() {
           <em>pede hoje?</em>
         </h3>
         <p className="care-sel-intro">
-          Selecione uma modalidade para conhecer como cuidamos de você de perto no estúdio.
+          Selecione uma modalidade para conhecer como cuidamos de você de perto no studio.
         </p>
 
-        <div className="care-sel-tabs" role="tablist" aria-label="Cuidados no estúdio">
+        <div className="care-sel-tabs" role="tablist" aria-label="Cuidados no studio">
           {services.map((service, index) => {
             const isSelected = active === index;
             return (
@@ -535,19 +535,19 @@ const differentials = [
   {
     num: '02',
     title: 'Ambiente amplo e climatizado',
-    desc: 'Um estúdio iluminado, arejado e climatizado para você fazer sua aula ou sessão de fisioterapia com conforto em qualquer época do ano.',
+    desc: 'Um studio iluminado, arejado e climatizado para você fazer sua aula ou sessão de fisioterapia com conforto em qualquer época do ano.',
     icon: SparkIcon,
   },
   {
     num: '03',
     title: 'Acessibilidade e estacionamento fácil',
-    desc: 'Acesso prático em Itajubá e tranquilidade para estacionar perto do estúdio no horário da sua aula.',
+    desc: 'Acesso prático em Itajubá e tranquilidade para estacionar perto do studio no horário da sua aula.',
     icon: CompassIcon,
   },
   {
     num: '04',
     title: 'Pilates, Fisio e Recovery no mesmo lugar',
-    desc: 'Você encontra aulas em aparelhos, reabilitação fisioterapêutica, bota pneumática e massagens integradas em um só estúdio.',
+    desc: 'Você encontra aulas em aparelhos, reabilitação fisioterapêutica, bota pneumática e massagens integradas em um só studio.',
     icon: ShieldCheckIcon,
   },
 ];
@@ -633,7 +633,7 @@ export default function App() {
             <Wordmark />
 
             <nav className="pill-nav" aria-label="Navegação principal">
-              <a href="#espaco">O estúdio</a>
+              <a href="#espaco">O studio</a>
               <a href="#cuidados">Cuidados</a>
               <a href="#diferenciais">Diferenciais</a>
               <a href="#gabi">Gabi</a>
@@ -687,7 +687,7 @@ export default function App() {
               <ul className="mobile-nav-list">
                 <li>
                   <a href="#espaco" onClick={() => setMobileNavOpen(false)}>
-                    <span>01</span>O estúdio
+                    <span>01</span>O studio
                   </a>
                 </li>
                 <li>
@@ -852,7 +852,7 @@ export default function App() {
               <br />
               <em>para o seu bem-estar.</em>
             </h2>
-            <p>Um estúdio iluminado, com aparelhos completos e espaço livre para você treinar e se recuperar com calma.</p>
+            <p>Um studio iluminado, com aparelhos completos e espaço livre para você treinar e se recuperar com calma.</p>
           </div>
 
           <div className="studio-showcase">
@@ -938,7 +938,7 @@ export default function App() {
                 src="/images/gabi-sobre-960.webp"
                 srcSet="/images/gabi-sobre-640.webp 640w, /images/gabi-sobre-960.webp 960w"
                 sizes="(max-width: 760px) 90vw, 40vw"
-                alt="Gabi Xavier, fisioterapeuta e instrutora de Pilates, sentada em uma bola no estúdio"
+                alt="Gabi Xavier, fisioterapeuta e instrutora de Pilates, sentada em uma bola no studio"
                 loading="lazy"
                 decoding="async"
                 width="960"
@@ -1017,9 +1017,9 @@ export default function App() {
                 </span>
               </div>
               <div className="ig-text">
-                <span className="ig-eyebrow">ACOMPANHE A ROTINA DO ESTÚDIO</span>
+                <span className="ig-eyebrow">ACOMPANHE A ROTINA DO STUDIO</span>
                 <strong className="ig-handle">@pilatesgabixavier</strong>
-                <p>Veja a rotina das aulas, os aparelhos do estúdio em Itajubá e dicas práticas de postura e movimento.</p>
+                <p>Veja a rotina das aulas, os aparelhos do studio em Itajubá e dicas práticas de postura e movimento.</p>
               </div>
             </div>
             <a

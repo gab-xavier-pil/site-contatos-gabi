@@ -8,7 +8,7 @@ const LONG_TEXT_LIMIT = 215;
 
 const reviewTopics = [
   { label: 'Alívio de dores', count: 6 },
-  { label: 'Aulas no estúdio', count: 6 },
+  { label: 'Aulas no studio', count: 6 },
   { label: 'Equipe acolhedora', count: 5 },
   { label: 'Bem-estar', count: 2 },
   { label: 'Ambiente feliz', count: 2 },
@@ -535,7 +535,7 @@ export default function ReviewsSection() {
 
       <div className="reviews-cta-strip">
         <p>
-          Veja todas as <strong>{data.totalReviews} avaliações 5 estrelas</strong> no perfil oficial do estúdio no Google.
+          Veja todas as <strong>{data.totalReviews} avaliações 5 estrelas</strong> no perfil oficial do studio no Google.
         </p>
         <a
           className="reviews-google-cta"

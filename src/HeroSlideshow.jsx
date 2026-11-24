@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './hero-slideshow.css';
 
 const slides = [
-  { image: 'gabi-hero', alt: 'Gabi Xavier recebe você em seu estúdio de Pilates em Itajubá' },
+  { image: 'gabi-hero', alt: 'Gabi Xavier recebe você em seu studio de Pilates em Itajubá' },
   { image: 'hero-gabi-reformer', alt: 'Gabi Xavier em exercício de Pilates no reformer do Studio GX' },
-  { image: 'hero-gabi-straps', alt: 'Gabi Xavier ajoelhada no reformer, com alongamento de braços no estúdio' },
+  { image: 'hero-gabi-straps', alt: 'Gabi Xavier ajoelhada no reformer, com alongamento de braços no studio' },
   { image: 'hero-studio-plantas', alt: 'Reformers de madeira e plantas no Studio GX' },
   { image: 'hero-studio-barrel', alt: 'Aparelhos barrel de Pilates no Studio GX' },
   { image: 'hero-studio-verde', alt: 'Espaço do Studio GX com parede verde e equipamentos de Pilates' },

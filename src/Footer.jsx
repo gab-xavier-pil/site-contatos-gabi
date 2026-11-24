@@ -77,7 +77,7 @@ export default function Footer({ whatsapp, email, phone, instagram, maps, wordma
         <div className="footer-brand">
           {wordmark}
           <p className="footer-description" itemProp="description">
-            Estúdio de Pilates em aparelhos, fisioterapia e Recovery GX no bairro São Vicente, em
+            Studio de Pilates em aparelhos, fisioterapia e Recovery GX no bairro São Vicente, em
             Itajubá – MG. Cuidado presencial especializado no alívio de dores, reabilitação e
             fortalecimento no seu ritmo.
           </p>
@@ -118,7 +118,7 @@ export default function Footer({ whatsapp, email, phone, instagram, maps, wordma
               <a href="#inicio">Início</a>
             </li>
             <li>
-              <a href="#espaco">O Estúdio</a>
+              <a href="#espaco">O Studio</a>
             </li>
             <li>
               <a href="#cuidados" onClick={() => selectServiceTab(0)}>

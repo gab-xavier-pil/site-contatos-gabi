@@ -5,7 +5,7 @@ const courseModules = [
   {
     num: '01',
     title: 'Fortalecimento do corpo todo',
-    duration: 'Aulas de 10 a 45 min',
+    duration: 'Aulas de 10 a 15 min',
     summary:
       'Aulas completas que trabalham pernas, abdômen, costas e braços juntos, construindo força e resistência no seu ritmo.',
     objectives: [
@@ -58,16 +58,16 @@ const courseHighlights = [
     label: 'Do básico ao avançado, sem pular etapas.',
   },
   {
-    value: '10 a 45 min',
-    label: 'Escolha a aula pelo tempo que você tem no dia.',
+    value: '10 a 15 min',
+    label: 'Por dia.',
   },
   {
-    value: 'Sem aparelhos',
-    label: 'Só um tapete ou colchonete no espaço da sua sala.',
+    value: '4 exercícios por mês',
+    label: 'Pode assistir e realizar quantas vezes forem necessárias.',
   },
   {
-    value: 'Acesso vitalício',
-    label: 'Pague uma vez e assista sempre, com atualizações.',
+    value: 'Suporte 24h',
+    label: 'Ajuda disponível a qualquer hora.',
   },
 ];
 
@@ -83,9 +83,9 @@ const courseFaqs = [
       'Não. Todas as rotinas principais foram montadas para fazer em casa sem aparelhos. Se um dia você quiser usar algum acessório para variar os treinos, há aulas opcionais para essa fase.',
   },
   {
-    question: 'Quanto tempo dura cada aula e por quanto tempo o acesso fica liberado?',
+    question: 'Quanto tempo dura cada aula e como funciona o acesso?',
     answer:
-      'Há aulas de 10, 20, 30 e 45 minutos, para caber tanto nos dias corridos quanto nos dias mais tranquilos. Depois da inscrição na página oficial, o acesso é vitalício, com atualizações futuras, comunidade de alunas e garantia de 7 dias.',
+      'Cada aula dura de 10 a 15 minutos por dia. São 4 exercícios por mês, e você pode assistir e realizar quantas vezes forem necessárias. O suporte fica disponível 24 horas.',
   },
 ];
 
@@ -320,7 +320,7 @@ export default function OnlineCourseSection({ courseUrl }) {
                           <p>{mod.stageCaption}</p>
                           <div className="course-durations-line" aria-hidden="true">
                             <span>Rotinas de</span>
-                            <strong>10 · 20 · 30 · 45 min</strong>
+                            <strong>10 a 15 min</strong>
                           </div>
                         </div>
                       </figcaption>
@@ -336,7 +336,7 @@ export default function OnlineCourseSection({ courseUrl }) {
                 </span>
                 <div className="course-plaque-stats">
                   <div>
-                    <strong>11+</strong>
+                    <strong>12+</strong>
                     <span>anos de Pilates</span>
                   </div>
                   <span className="course-plaque-sep" />
@@ -445,7 +445,7 @@ export default function OnlineCourseSection({ courseUrl }) {
             </a>
 
             <div className="course-cta-meta">
-              <span>Abre a página oficial do curso, com acesso vitalício e garantia de 7 dias.</span>
+              <span>Abre a página das aulas, com suporte 24h.</span>
               <a
                 className="course-inline-link"
                 href={courseUrl}
@@ -467,7 +467,7 @@ export default function OnlineCourseSection({ courseUrl }) {
           <h3>
             Antes de acessar
             <br />
-            <em>a página do curso.</em>
+            <em>a página das aulas.</em>
           </h3>
           <p>
             Se você está pensando em começar o Desafio Pilates 8 GX em casa, aqui estão as
