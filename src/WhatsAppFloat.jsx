@@ -15,7 +15,7 @@ export default function WhatsAppFloat({ href, raised = false }) {
       aria-label="Agenda o Cuidado do Seu Corpo pelo WhatsApp"
     >
       <span className="whatsapp-float-tooltip" aria-hidden="true">
-        Falar com a Gabi no WhatsApp
+        Falar comigo no WhatsApp
       </span>
       <WhatsAppIcon />
     </a>

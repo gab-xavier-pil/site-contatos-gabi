@@ -1054,10 +1054,90 @@ h2 {
   transition: transform 680ms var(--easing-expo);
 }
 
+.service-story-frame.is-slideshow .service-slide-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 720ms ease;
+  animation: none;
+  z-index: 0;
+}
+
+.service-story-frame.is-slideshow .service-slide-img.is-active {
+  opacity: 1;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .service-story-frame.is-slideshow .service-slide-img.is-active {
+    animation: service-slide-zoom 4.6s linear forwards;
+  }
+}
+
+@keyframes service-slide-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+
+.service-story-frame.is-slideshow::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(46, 28, 46, 0.42), transparent);
+}
+
+.service-slide-dots {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(46, 28, 46, 0.62);
+  border: 1px solid rgba(232, 209, 231, 0.28);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.service-slide-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(250, 246, 250, 0.42);
+  cursor: pointer;
+  transition:
+    width 280ms var(--easing-expo),
+    background 240ms ease;
+}
+
+.service-slide-dot.is-active {
+  width: 20px;
+  background: var(--gold-on-cocoa);
+}
+
 .service-media-num {
   position: absolute;
   top: 18px;
   left: 18px;
+  z-index: 3;
   padding: 6px 14px;
   border-radius: 999px;
   background: rgba(46, 28, 46, 0.78);
@@ -1669,7 +1749,7 @@ h2 {
     border-color: var(--cocoa);
     transform: translateY(3px);
   }
-  .service-story-frame:hover img {
+  .service-story-frame:not(.is-slideshow):hover img {
     transform: scale(1.04);
   }
   .about-portrait-wrap:hover .about-portrait > img {

@@ -222,6 +222,13 @@ function usePageMotion() {
 
 const spaces = [
   {
+    image: 'hero-studio-fachada',
+    tag: 'FACHADA · SÃO VICENTE',
+    caption: 'Fácil de encontrar, com acessibilidade e estacionamento próximo na Rua Eduardo Piquet, 78.',
+    alt: 'Fachada externa do Studio GX Pilates e Fisioterapia no bairro São Vicente em Itajubá',
+    position: '50% 42%',
+  },
+  {
     image: 'studio-luz',
     tag: 'AMBIENTE & LUZ',
     caption: 'Luz natural, espaço e um convite ao movimento.',
@@ -230,7 +237,7 @@ const spaces = [
   {
     image: 'studio-amplo',
     tag: 'ESTRUTURA COMPLETA',
-    caption: 'Um espaço preparado para receber você.',
+    caption: 'Um espaço que preparei para receber você.',
     alt: 'Visão ampla do Studio GX com equipamentos de Pilates e parede verde',
   },
   {
@@ -282,6 +289,7 @@ function StudioGallery() {
               src={`/images/${space.image}-960.webp`}
               srcSet={`/images/${space.image}-640.webp 640w, /images/${space.image}-960.webp 960w`}
               sizes="(max-width: 760px) 92vw, 58vw"
+              style={space.position ? { objectPosition: space.position } : undefined}
               alt={space.alt}
               loading="lazy"
               decoding="async"
@@ -355,7 +363,7 @@ const servicesOverview = [
     name: 'Pilates presencial no studio',
     mode: 'Presencial · Itajubá',
     isOnline: false,
-    shortDesc: 'Aulas em aparelhos com acompanhamento próximo, no seu ritmo. Particular, Wellhub e TotalPass.',
+    shortDesc: 'Aulas em aparelhos com orientação próxima minha e da minha equipe, no seu ritmo. Particular, Wellhub e TotalPass.',
   },
   {
     num: '03',
@@ -363,7 +371,7 @@ const servicesOverview = [
     name: 'Desafio GX',
     mode: '100% On-line · Aulas em casa',
     isOnline: true,
-    shortDesc: 'Programa de Pilates on-line gravado pela Gabi para praticar em casa, sem aparelhos.',
+    shortDesc: 'Meu programa de Pilates on-line gravado por mim para você praticar em casa, sem aparelhos.',
   },
   {
     num: '04',
@@ -371,7 +379,7 @@ const servicesOverview = [
     name: 'Recovery GX',
     mode: 'Presencial · Studio GX',
     isOnline: false,
-    shortDesc: 'Sessões com bota de compressão pneumática para aliviar a fadiga e deixar as pernas mais leves.',
+    shortDesc: 'Sessões com bota de compressão pneumática para aliviar a fadiga, deixar as pernas mais leves e cuidar do lipedema.',
   },
   {
     num: '05',
@@ -393,7 +401,7 @@ const studioServicesBeforeOnline = [
     headingEmphasis: 'voltar a se mover sem dor.',
     lead: 'Atendimento voltado à origem da sua dor ou limitação, unindo fisioterapia clínica e movimento para recuperar força, vitalidade e segurança na rotina.',
     details:
-      'Além das sessões no Studio GX em Itajubá, também oferecemos atendimento domiciliar para quem precisa de cuidado no conforto de casa.',
+      'Além das sessões aqui no meu Studio GX em Itajubá, eu e minha equipe também oferecemos atendimento domiciliar para quem precisa de cuidado no conforto de casa.',
     highlights: [
       'Recuperação de movimentos e alívio de dores',
       'Atendimento presencial no studio ou domiciliar',
@@ -401,7 +409,7 @@ const studioServicesBeforeOnline = [
     ],
     ctaLabel: 'Conversar sobre Fisioterapia',
     ctaHref: createWhatsappLink(
-      'Olá, Gabi! Vim pelo site e gostaria de saber mais sobre atendimento de Fisioterapia.',
+      'Olá, Gabi! Vim pelo site, tenho interesse em Fisioterapia e gostaria de mais informações.',
     ),
     imageSrc: '/images/faixa/ft-17.webp',
     imageAlt: 'Gabi Xavier conduzindo sessão de fisioterapia na sala clínica do Studio GX',
@@ -417,9 +425,9 @@ const studioServicesBeforeOnline = [
     modeBadge: 'PRESENCIAL EM ITAJUBÁ · STUDIO GX',
     headingStart: 'Força, postura e mobilidade',
     headingEmphasis: 'no seu ritmo.',
-    lead: 'Aulas presenciais em aparelhos com orientação próxima da Gabi e equipe, ajustando cada exercício para fortalecer a musculatura, alinhar a postura e ganhar condicionamento físico.',
+    lead: 'Aulas presenciais em aparelhos com orientação próxima minha e da minha equipe, ajustando cada exercício para fortalecer a musculatura, alinhar a postura e ganhar condicionamento físico.',
     details:
-      'Nada de aula no automático: o acompanhamento respeita o momento do seu corpo — no studio em Itajubá ou no atendimento domiciliar.',
+      'Nada de aula no automático: o meu acompanhamento respeita o momento do seu corpo — presencialmente aqui no studio em Itajubá ou no atendimento domiciliar.',
     highlights: [
       'Três kits completos de aparelhos com acompanhamento de perto',
       'Fortalecimento, resistência física, postura e mobilidade',
@@ -427,13 +435,47 @@ const studioServicesBeforeOnline = [
     ],
     ctaLabel: 'Agendar Pilates presencial',
     ctaHref: createWhatsappLink(
-      'Olá, Gabi! Vim pelo site e gostaria de agendar uma aula de Pilates presencial no studio.',
+      'Olá, Gabi! Vim pelo site, tenho interesse no Pilates presencial no studio e gostaria de agendar uma aula.',
     ),
-    imageSrc: '/images/hero-gabi-reformer-960.webp',
-    imageSrcSet: '/images/hero-gabi-reformer-640.webp 640w, /images/hero-gabi-reformer-960.webp 960w',
-    imageAlt: 'Gabi Xavier demonstrando exercício de Pilates no aparelho reformer no Studio GX',
-    imageWidth: 960,
-    imageHeight: 960,
+    mediaSlides: [
+      {
+        src: '/images/hero-gabi-reformer-960.webp',
+        srcSet: '/images/hero-gabi-reformer-640.webp 640w, /images/hero-gabi-reformer-960.webp 960w',
+        alt: 'Gabi Xavier demonstrando exercício de Pilates no aparelho reformer no Studio GX',
+        width: 960,
+        height: 960,
+        position: '50% 24%',
+      },
+      {
+        src: '/images/pilates-presencial-01-960.webp',
+        srcSet: '/images/pilates-presencial-01-640.webp 640w, /images/pilates-presencial-01-960.webp 960w',
+        alt: 'Aluna realizando exercício invertido no Cadillac durante aula presencial de Pilates no Studio GX',
+        width: 960,
+        height: 1581,
+        position: '50% 46%',
+      },
+      {
+        src: '/images/pilates-presencial-02-640.webp',
+        alt: 'Aluna em exercício de suspensão e força no Cadillac durante aula de Pilates no Studio GX',
+        width: 547,
+        height: 961,
+        position: '50% 48%',
+      },
+      {
+        src: '/images/pilates-presencial-03-640.webp',
+        alt: 'Aluno praticando prancha com fortalecimento de braço e core no Studio GX',
+        width: 547,
+        height: 961,
+        position: '50% 44%',
+      },
+      {
+        src: '/images/pilates-presencial-04-640.webp',
+        alt: 'Aluna sorrindo durante exercício com bola no aparelho barrel do Studio GX',
+        width: 547,
+        height: 961,
+        position: '50% 34%',
+      },
+    ],
     imageCaption: 'Aulas em aparelhos no Studio GX em Itajubá',
     reverse: true,
   },
@@ -447,24 +489,25 @@ const studioServicesAfterOnline = [
     modeBadge: 'PRESENCIAL NO STUDIO · BOTA PNEUMÁTICA',
     headingStart: 'Recuperação muscular',
     headingEmphasis: 'e pernas mais leves.',
-    lead: 'Sessões com bota de compressão pneumática pensadas para quem treina, passa muito tempo em pé ou sente o corpo cansado ao fim da semana.',
+    lead: 'Sessões com bota de compressão pneumática pensadas para quem treina, passa muito tempo em pé, sente o corpo cansado ou busca alívio e cuidado para o lipedema.',
     details:
-      'A compressão sequencial estimula a circulação, reduz a fadiga muscular e acelera o descanso para você voltar mais leve às suas atividades.',
+      'A compressão sequencial estimula a circulação, reduz o inchaço e a fadiga muscular — sendo muito indicada também para quem tem lipedema, ajudando a aliviar o desconforto e deixar as pernas muito mais leves.',
     highlights: [
       'Sessões com bota de compressão pneumática',
-      'Alívio da fadiga muscular e sensação de peso nas pernas',
-      'Estímulo à circulação e recuperação pós-treino',
+      'Muito indicado para quem tem lipedema, auxiliando no alívio do inchaço e do peso nas pernas',
+      'Estímulo à circulação, alívio da fadiga muscular e recuperação pós-treino',
     ],
     ctaLabel: 'Agendar Recovery GX',
     ctaHref: createWhatsappLink(
-      'Olá, Gabi! Vim pelo site e gostaria de agendar uma sessão de Recovery GX com bota pneumática.',
+      'Olá, Gabi! Vim pelo site, tenho interesse no Recovery GX com bota pneumática e gostaria de agendar uma sessão.',
     ),
-    imageSrc: '/images/hero-studio-barrel-960.webp',
-    imageSrcSet: '/images/hero-studio-barrel-640.webp 640w, /images/hero-studio-barrel-960.webp 960w',
-    imageAlt: 'Ambiente do Studio GX preparado para sessões de cuidado e recuperação corporal',
+    imageSrc: '/images/recovery-bota-960.webp',
+    imageSrcSet: '/images/recovery-bota-640.webp 640w, /images/recovery-bota-960.webp 960w',
+    imageAlt: 'Sala de Recovery GX no Studio GX com sessão de terapia em bota de compressão pneumática',
     imageWidth: 960,
-    imageHeight: 960,
-    imageCaption: 'Recuperação muscular presencial no Studio GX',
+    imageHeight: 1200,
+    imagePosition: '50% 72%',
+    imageCaption: 'Bota de compressão pneumática no Studio GX · Recuperação e cuidado para lipedema',
     reverse: false,
   },
   {
@@ -476,7 +519,7 @@ const studioServicesAfterOnline = [
     headingEmphasis: 'a tensão do corpo.',
     lead: 'Drenagem linfática, massagem modeladora, relaxante e terapêutica realizadas no studio para aliviar pontos de tensão, ativar a circulação e devolver leveza.',
     details:
-      'Cada sessão é conduzida em um ambiente reservado e tranquilo, cuidando tanto do relaxamento quanto do bem-estar físico do dia a dia.',
+      'Cada sessão é conduzida por mim e pela minha equipe em um ambiente reservado e tranquilo, cuidando tanto do relaxamento quanto do bem-estar físico do dia a dia.',
     highlights: [
       'Drenagem linfática e massagem modeladora',
       'Massagem relaxante e terapêutica para alívio de tensões',
@@ -484,7 +527,7 @@ const studioServicesAfterOnline = [
     ],
     ctaLabel: 'Agendar massagem',
     ctaHref: createWhatsappLink(
-      'Olá, Gabi! Vim pelo site e gostaria de agendar uma sessão de massagem no Studio GX.',
+      'Olá, Gabi! Vim pelo site, tenho interesse em Massagens no Studio GX e gostaria de agendar uma sessão.',
     ),
     imageSrc: '/images/faixa/ft-18.webp',
     imageAlt: 'Gabi Xavier realizando massagem terapêutica e relaxante no Studio GX',
@@ -494,6 +537,64 @@ const studioServicesAfterOnline = [
     reverse: true,
   },
 ];
+
+function ServiceMediaSlideshow({ slides, num, label }) {
+  const [current, setCurrent] = useState(0);
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduced.matches || slides.length <= 1) return;
+    const id = window.setInterval(() => {
+      setCurrent(index => (index + 1) % slides.length);
+    }, 4000);
+    return () => window.clearInterval(id);
+  }, [slides.length, tick]);
+
+  return (
+    <div
+      className="service-story-frame is-slideshow"
+      role="region"
+      aria-roledescription="carrossel"
+      aria-label={`Fotos de ${label}`}
+    >
+      {slides.map((slide, index) => (
+        <img
+          key={slide.src}
+          className={`service-slide-img${index === current ? ' is-active' : ''}`}
+          src={slide.src}
+          srcSet={slide.srcSet}
+          sizes="(max-width: 760px) 92vw, 46vw"
+          style={slide.position ? { objectPosition: slide.position } : undefined}
+          alt={slide.alt}
+          width={slide.width}
+          height={slide.height}
+          loading="lazy"
+          decoding="async"
+        />
+      ))}
+      <span className="service-media-num" aria-hidden="true">
+        {num}
+      </span>
+      <div className="service-slide-dots" role="tablist" aria-label={`Selecionar foto de ${label}`}>
+        {slides.map((slide, index) => (
+          <button
+            key={slide.src}
+            type="button"
+            role="tab"
+            aria-selected={index === current}
+            aria-label={`Ver foto ${index + 1} de ${slides.length}`}
+            className={`service-slide-dot${index === current ? ' is-active' : ''}`}
+            onClick={() => {
+              setCurrent(index);
+              setTick(t => t + 1);
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ServiceStoryBlock({ service }) {
   return (
@@ -523,21 +624,30 @@ function ServiceStoryBlock({ service }) {
           className="service-story-media"
           data-reveal={service.reverse ? 'right' : 'left'}
         >
-          <div className="service-story-frame">
-            <img
-              src={service.imageSrc}
-              srcSet={service.imageSrcSet}
-              sizes="(max-width: 760px) 92vw, 46vw"
-              alt={service.imageAlt}
-              width={service.imageWidth}
-              height={service.imageHeight}
-              loading="lazy"
-              decoding="async"
+          {service.mediaSlides ? (
+            <ServiceMediaSlideshow
+              slides={service.mediaSlides}
+              num={service.num}
+              label={service.name}
             />
-            <span className="service-media-num" aria-hidden="true">
-              {service.num}
-            </span>
-          </div>
+          ) : (
+            <div className="service-story-frame">
+              <img
+                src={service.imageSrc}
+                srcSet={service.imageSrcSet}
+                sizes="(max-width: 760px) 92vw, 46vw"
+                style={service.imagePosition ? { objectPosition: service.imagePosition } : undefined}
+                alt={service.imageAlt}
+                width={service.imageWidth}
+                height={service.imageHeight}
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="service-media-num" aria-hidden="true">
+                {service.num}
+              </span>
+            </div>
+          )}
           <figcaption className="service-media-caption">
             <span className="eyebrow-dot" aria-hidden="true" />
             <span>{service.imageCaption}</span>
@@ -656,7 +766,7 @@ export default function App() {
               <a href="#espaco">O espaço</a>
               <a href="#servicos">Serviços</a>
               <a href="#pilates-online">Desafio GX</a>
-              <a href="#gabi">Gabi</a>
+              <a href="#gabi">Sobre mim</a>
               <a href="#avaliacoes">Avaliações</a>
               <a href="#contato">Localização</a>
             </nav>
@@ -721,7 +831,7 @@ export default function App() {
                 </li>
                 <li>
                   <a href="#gabi" onClick={() => setMobileNavOpen(false)}>
-                    <span>04</span>Conheça a Gabi
+                    <span>04</span>Sobre mim
                   </a>
                 </li>
                 <li>
@@ -793,8 +903,8 @@ export default function App() {
               </span>
             </h1>
             <p className="hero-description">
-              No Studio GX, em Itajubá, Gabi Xavier e sua equipe cuidam do seu corpo com
-              fisioterapia, Pilates presencial, Recovery GX e massagens — além do Desafio GX
+              No meu Studio GX, em Itajubá, eu e minha equipe cuidamos do seu corpo com
+              fisioterapia, Pilates presencial, Recovery GX e massagens — além do meu Desafio GX
               on-line para quem prefere treinar em casa.
             </p>
             <div className="hero-actions">
@@ -832,7 +942,7 @@ export default function App() {
               <em>para o seu bem-estar.</em>
             </h2>
             <p>
-              Um studio amplo, iluminado e acolhedor no bairro São Vicente, preparado para você
+              Um studio amplo, iluminado e acolhedor no bairro São Vicente, que preparei para você
               cuidar do corpo com calma e orientação de perto.
             </p>
           </div>
@@ -885,8 +995,8 @@ export default function App() {
               <em>para cuidar do seu corpo.</em>
             </h2>
             <p className="services-overview-intro">
-              Veja abaixo tudo o que a Gabi Xavier oferece — presencialmente no Studio GX em
-              Itajubá ou no formato on-line. Continue rolando a página para conhecer cada um em
+              Veja abaixo tudo o que eu e minha equipe oferecemos — presencialmente no Studio GX
+              em Itajubá ou no formato on-line. Continue rolando a página para conhecer cada um em
               detalhes, ou clique no serviço desejado.
             </p>
           </div>
@@ -972,13 +1082,14 @@ export default function App() {
               </em>
             </h2>
             <p>
-              Fisioterapeuta e instrutora de Pilates em Itajubá, Gabi Xavier criou o Studio GX
-              para oferecer um atendimento em que você não faz aula no automático — hoje com
-              equipe completa e três kits de aparelhos.
+              Sou fisioterapeuta e instrutora de Pilates em Itajubá, e criei o Studio GX para
+              oferecer um atendimento em que você não faz aula no automático — hoje conto com uma
+              equipe completa e três kits de aparelhos para cuidar de você.
             </p>
             <p>
-              Cada sessão acompanha de perto como o seu corpo responde, seja para tratar uma dor,
-              ganhar força, se recuperar melhor ou manter uma rotina ativa com segurança.
+              Em cada sessão, eu e minha equipe acompanhamos de perto como o seu corpo responde,
+              seja para tratar uma dor, ganhar força, se recuperar melhor ou manter uma rotina
+              ativa com segurança.
             </p>
 
             <div className="about-stats-strip">
@@ -1027,9 +1138,9 @@ export default function App() {
                 </span>
               </div>
               <div className="ig-text">
-                <span className="ig-eyebrow">ACOMPANHE A ROTINA DO STUDIO</span>
+                <span className="ig-eyebrow">ACOMPANHE O MEU DIA A DIA</span>
                 <strong className="ig-handle">@pilatesgabixavier</strong>
-                <p>Veja a rotina das aulas, os aparelhos do studio em Itajubá e dicas práticas de postura e movimento.</p>
+                <p>Acompanhe a rotina das minhas aulas, os aparelhos do studio em Itajubá e dicas práticas de postura e movimento.</p>
               </div>
             </div>
             <a

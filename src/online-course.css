@@ -271,22 +271,127 @@
 
 .course-stack-img {
   position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 58%;
+  object-fit: cover;
+  object-position: 50% 62%;
+}
+
+/* ── Vitrine Fotográfica Cinematográfica (3 fotos Pilates em Casa) ── */
+.course-photo-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  isolation: isolate;
+  width: 100%;
+  height: 58%;
+  overflow: hidden;
+  background: var(--cocoa);
+}
+
+.course-photo-layer {
+  position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 22%;
+  opacity: 0;
+  z-index: 0;
+  transform: var(--kb-from, scale(1.02));
+  will-change: transform, opacity, clip-path;
+  pointer-events: none;
+}
+
+.course-photo-layer.is-prev {
+  opacity: 1;
+  z-index: 1;
+  transform: var(--kb-to, scale(1.09));
+}
+
+.course-photo-layer.is-current {
+  opacity: 1;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .course-photo-layer.is-current {
+    animation:
+      course-photo-reveal 880ms cubic-bezier(0.22, 1, 0.36, 1) both,
+      course-photo-kenburns 4.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  .course-photo-layer.is-current.is-paused {
+    animation-play-state: running, paused;
+  }
+}
+
+@keyframes course-photo-reveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 0 0 18%);
+    filter: brightness(1.08) saturate(1.06);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0%);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@keyframes course-photo-kenburns {
+  from {
+    transform: var(--kb-from, translate3d(-1.4%, 0, 0) scale(1.02));
+  }
+  to {
+    transform: var(--kb-to, translate3d(1.4%, -0.8%, 0) scale(1.09));
+  }
+}
+
+.course-photo-sheen {
+  position: absolute;
+  inset: -20% -40%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    108deg,
+    transparent 38%,
+    rgba(250, 246, 250, 0.22) 50%,
+    rgba(220, 186, 219, 0.14) 54%,
+    transparent 64%
+  );
+  animation: course-sheen-sweep 960ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes course-sheen-sweep {
+  0% {
+    transform: translateX(-55%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(55%);
+    opacity: 0;
+  }
 }
 
 .course-stack-overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(34, 19, 34, 0.54) 0%,
-    rgba(34, 19, 34, 0.1) 34%,
-    rgba(34, 19, 34, 0.72) 68%,
-    rgba(24, 13, 24, 0.96) 100%
+    rgba(34, 19, 34, 0.42) 0%,
+    rgba(34, 19, 34, 0.04) 16%,
+    rgba(34, 19, 34, 0) 41%,
+    rgba(34, 19, 34, 0.78) 51%,
+    rgba(24, 13, 24, 0.98) 57%,
+    rgba(24, 13, 24, 1) 100%
   );
 }
 
@@ -327,10 +432,16 @@
 
 .course-stack-index {
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: 18px;
   font-style: italic;
-  color: var(--gold-on-cocoa);
+  color: var(--paper);
   font-variant-numeric: tabular-nums;
+  padding: 5px 13px;
+  border-radius: 999px;
+  background: rgba(34, 19, 34, 0.58);
+  border: 1px solid rgba(232, 209, 231, 0.26);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .course-stack-tag {
@@ -343,6 +454,99 @@
   border: 1px solid rgba(232, 209, 231, 0.28);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+}
+
+/* ── HUD de Progresso Editorial das 3 Fotos ──── */
+.course-photo-hud {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.course-photo-bars {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.course-photo-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  margin: -10px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.course-photo-bar-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(250, 246, 250, 0.22);
+  overflow: hidden;
+  transition: background 220ms ease;
+}
+
+.course-photo-bar:hover .course-photo-bar-track {
+  background: rgba(250, 246, 250, 0.38);
+}
+
+.course-photo-bar-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-on-cocoa), var(--paper));
+  transform-origin: left center;
+  animation: course-progress-fill 4s linear forwards;
+}
+
+.course-photo-bar.is-paused .course-photo-bar-fill {
+  animation-play-state: paused;
+}
+
+@keyframes course-progress-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.course-photo-pause {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 209, 231, 0.3);
+  background: rgba(34, 19, 34, 0.64);
+  color: var(--paper);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    transform 220ms var(--easing-expo);
+}
+
+.course-photo-pause svg {
+  width: 12px;
+  height: 12px;
+}
+
+.course-photo-pause:hover {
+  background: rgba(232, 209, 231, 0.2);
+  border-color: var(--gold-on-cocoa);
+  transform: scale(1.06);
 }
 
 .course-stack-bottom {
@@ -963,13 +1167,17 @@
     display: none;
   }
   .course-stack-content {
-    padding: 20px 20px 22px;
+    padding: 18px 18px 20px;
+  }
+  .course-stack-bottom {
+    gap: 8px;
   }
   .course-stack-title {
-    font-size: clamp(30px, 8vw, 38px);
+    font-size: clamp(27px, 7.2vw, 34px);
   }
   .course-stack-bottom p {
-    font-size: 15px;
+    font-size: 14.5px;
+    line-height: 1.52;
   }
   .course-durations-line {
     font-size: 13.5px;
@@ -1052,11 +1260,16 @@
   .course-stage-3d,
   .course-floor-shadow,
   .course-float-plaque,
-  .course-orbit {
+  .course-orbit,
+  .course-photo-layer,
+  .course-photo-sheen,
+  .course-photo-bar-fill {
     transform: none !important;
     animation: none !important;
+    clip-path: none !important;
   }
-  .course-orbit {
+  .course-orbit,
+  .course-photo-sheen {
     display: none;
   }
 }

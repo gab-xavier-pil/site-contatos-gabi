@@ -340,7 +340,7 @@ export default function ReviewsSection() {
             <em>sente a diferença.</em>
           </h2>
           <p className="reviews-subtitle">
-            Depoimentos reais de quem cuida da postura, alivia dores e encontra acolhimento de perto no Studio GX em Itajubá.
+            Depoimentos reais de quem cuida da postura, alivia dores e encontra acolhimento de perto aqui no meu studio em Itajubá.
           </p>
         </div>
 

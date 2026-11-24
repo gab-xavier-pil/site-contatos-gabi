@@ -72,9 +72,9 @@ export default function Footer({ whatsapp, email, phone, instagram, maps, wordma
         <div className="footer-brand">
           {wordmark}
           <p className="footer-description" itemProp="description">
-            Studio de Pilates em aparelhos, fisioterapia e Recovery GX no bairro São Vicente, em
-            Itajubá – MG. Cuidado presencial especializado no alívio de dores, reabilitação e
-            fortalecimento no seu ritmo.
+            Meu studio de Pilates em aparelhos, fisioterapia, Recovery GX (inclusive para lipedema)
+            e massagens no bairro São Vicente, em Itajubá – MG. Cuidado presencial comigo e com a
+            minha equipe no seu ritmo.
           </p>
           <div className="footer-socials" aria-label="Redes sociais e contato direto">
             <a
@@ -134,7 +134,7 @@ export default function Footer({ whatsapp, email, phone, instagram, maps, wordma
               <a href="#servico-massagens">05 · Massagens</a>
             </li>
             <li>
-              <a href="#gabi">Conheça a Gabi</a>
+              <a href="#gabi">Sobre mim</a>
             </li>
           </ul>
         </nav>

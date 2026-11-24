@@ -1,6 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './online-course.css';
 
+const PHOTO_INTERVAL_MS = 4000;
+
+const homePilatesPhotos = [
+  {
+    id: 'casa-1',
+    image: 'pilates-em-casa-1',
+    position: '50% 64%',
+    kbFrom: 'translate3d(-1.4%, 0, 0) scale(1.02)',
+    kbTo: 'translate3d(1.4%, -0.8%, 0) scale(1.09)',
+    label: 'Fortalecimento no tapete em casa',
+    alt: 'Gabi Xavier praticando exercício de fortalecimento do corpo todo no tapete em casa',
+  },
+  {
+    id: 'casa-2',
+    image: 'pilates-em-casa-2',
+    position: '50% 58%',
+    kbFrom: 'translate3d(1.4%, 0, 0) scale(1.02)',
+    kbTo: 'translate3d(-1.4%, -0.8%, 0) scale(1.09)',
+    label: 'Pilates funcional e equilíbrio na sala',
+    alt: 'Gabi Xavier executando exercício de Pilates funcional e equilíbrio na sala de casa',
+  },
+  {
+    id: 'casa-3',
+    image: 'pilates-em-casa-3',
+    position: '50% 66%',
+    kbFrom: 'translate3d(-1%, 0.6%, 0) scale(1.02)',
+    kbTo: 'translate3d(1.2%, -1%, 0) scale(1.09)',
+    label: 'Treino de pernas e core sem aparelhos',
+    alt: 'Gabi Xavier demonstrando treino de braços, pernas e abdômen no Pilates em casa',
+  },
+];
+
 const courseModules = [
   {
     num: '01',
@@ -15,8 +47,7 @@ const courseModules = [
       'Aprender a respirar e controlar cada movimento',
     ],
     stageCaption: 'Força global, controle e equilíbrio em aulas que respeitam o ritmo do seu corpo.',
-    image: 'hero-gabi-straps',
-    imageAlt: 'Gabi Xavier executando exercício de Pilates com foco em postura e alongamento',
+    photoIndex: 0,
   },
   {
     num: '02',
@@ -31,8 +62,7 @@ const courseModules = [
       'Proteger o corpo contra lesões e dores recorrentes',
     ],
     stageCaption: 'Pilates clássico e movimentos funcionais para ganhar amplitude e se mover sem dor.',
-    image: 'hero-gabi-reformer',
-    imageAlt: 'Gabi Xavier em postura de controle e mobilidade no método Pilates',
+    photoIndex: 1,
   },
   {
     num: '03',
@@ -47,8 +77,7 @@ const courseModules = [
       'Levar mais força para tarefas simples do dia a dia',
     ],
     stageCaption: 'Aulas direcionadas para tonificar braços e pernas com correção de postura.',
-    image: 'gabi-hero',
-    imageAlt: 'Gabi Xavier, fisioterapeuta e instrutora do Desafio Pilates 8 GX online',
+    photoIndex: 2,
   },
 ];
 
@@ -130,11 +159,70 @@ function PlusIcon(props) {
   );
 }
 
+function PauseIcon(props) {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" {...props}>
+      <rect x="4" y="3" width="2.8" height="10" rx="1" />
+      <rect x="9.2" y="3" width="2.8" height="10" rx="1" />
+    </svg>
+  );
+}
+
+function PlayIcon(props) {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M5 3.4c0-.66.72-1.06 1.28-.72l6.6 4.02c.54.33.54 1.11 0 1.44l-6.6 4.02C5.72 12.5 5 12.1 5 11.44V3.4Z" />
+    </svg>
+  );
+}
+
 export default function OnlineCourseSection({ courseUrl }) {
   const [activeModule, setActiveModule] = useState(0);
+  const [activePhoto, setActivePhoto] = useState(0);
+  const [prevPhoto, setPrevPhoto] = useState(null);
+  const [photoTick, setPhotoTick] = useState(0);
+  const [isPhotoPaused, setIsPhotoPaused] = useState(false);
+  const [isStageHovered, setIsStageHovered] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const stageRef = useRef(null);
   const rafRef = useRef(null);
   const tabRefs = useRef([]);
+
+  const isAutoPaused = isPhotoPaused || isStageHovered || reducedMotion;
+
+  const goToPhoto = nextIdx => {
+    setActivePhoto(current => {
+      if (current === nextIdx) return current;
+      setPrevPhoto(current);
+      return nextIdx;
+    });
+    setPhotoTick(t => t + 1);
+  };
+
+  const selectModule = idx => {
+    setActiveModule(idx);
+    goToPhoto(courseModules[idx].photoIndex);
+  };
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReducedMotion(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  useEffect(() => {
+    if (isAutoPaused) return;
+    const timer = window.setTimeout(() => {
+      setActivePhoto(current => {
+        setPrevPhoto(current);
+        return (current + 1) % homePilatesPhotos.length;
+      });
+      setPhotoTick(t => t + 1);
+    }, PHOTO_INTERVAL_MS);
+    return () => window.clearTimeout(timer);
+  }, [activePhoto, photoTick, isAutoPaused]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -181,10 +269,12 @@ export default function OnlineCourseSection({ courseUrl }) {
     const handlePointerLeave = () => {
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
       stage.classList.remove('is-tilting');
+      setIsStageHovered(false);
       resetTilt();
     };
 
     const handlePointerEnter = () => {
+      setIsStageHovered(true);
       if (reducedMq.matches || !finePointerMq.matches) return;
       stage.classList.add('is-tilting');
     };
@@ -214,7 +304,7 @@ export default function OnlineCourseSection({ courseUrl }) {
     }
     if (next === undefined) return;
     event.preventDefault();
-    setActiveModule(next);
+    selectModule(next);
     tabRefs.current[next]?.focus();
   }
 
@@ -250,8 +340,8 @@ export default function OnlineCourseSection({ courseUrl }) {
           <span>Desafio GX — Pilates on-line</span>
         </p>
         <p className="chapter-online-note">
-          Diferente das aulas presenciais em Itajubá, aqui você pratica em casa com videoaulas
-          gravadas pela Gabi, sem precisar de aparelhos.
+          Diferente das aulas presenciais aqui em Itajubá, no on-line você pratica em casa com
+          videoaulas gravadas por mim, sem precisar de aparelhos.
         </p>
       </div>
 
@@ -262,16 +352,16 @@ export default function OnlineCourseSection({ courseUrl }) {
             DESAFIO PILATES 8 GX · AULAS ONLINE
           </p>
           <h2 id="course-title">
-            O método da Gabi,
+            O meu método,
             <br />
-            <em>no ritmo da sua casa.</em>
+            <em>no seu ritmo e na sua casa.</em>
           </h2>
         </div>
 
         <p className="course-intro" itemProp="description">
-          Quem não mora em Itajubá ou prefere treinar em casa pode praticar com a Gabi pelo
-          Desafio Pilates 8 GX. São aulas gravadas em alta definição, pensadas para quem está
-          começando do zero e para quem já pratica, com orientações claras de postura e sem
+          Quem não mora em Itajubá ou prefere treinar em casa pode treinar comigo pelo Desafio
+          Pilates 8 GX. São aulas gravadas por mim em alta definição, pensadas tanto para quem está
+          começando do zero quanto para quem já pratica, com orientações claras de postura e sem
           precisar de aparelhos.
         </p>
       </div>
@@ -298,12 +388,19 @@ export default function OnlineCourseSection({ courseUrl }) {
               <div className="course-floor-shadow" aria-hidden="true" />
 
               {/* Pilha física de 3 cartões fotográficos em camadas Z */}
-              <div className="course-card-stack">
+              <div
+                className="course-card-stack"
+                role="region"
+                aria-roledescription="carrossel"
+                aria-label="Fotos reais das aulas de Pilates em casa"
+              >
                 {courseModules.map((mod, idx) => {
                   const total = courseModules.length;
                   const relPos = (idx - activeModule + total) % total;
                   const depthClass =
                     relPos === 0 ? 'is-front' : relPos === 1 ? 'is-mid' : 'is-back';
+                  const backPhoto =
+                    homePilatesPhotos[(activePhoto + relPos) % homePilatesPhotos.length];
 
                   return (
                     <figure
@@ -311,20 +408,56 @@ export default function OnlineCourseSection({ courseUrl }) {
                       className={`course-stack-card ${depthClass}`}
                       aria-hidden={relPos !== 0}
                       onClick={() => {
-                        if (relPos !== 0) setActiveModule(idx);
+                        if (relPos !== 0) selectModule(idx);
                       }}
                     >
-                      <img
-                        className="course-stack-img"
-                        src={`/images/${mod.image}-960.webp`}
-                        srcSet={`/images/${mod.image}-640.webp 640w, /images/${mod.image}-960.webp 960w`}
-                        sizes="(max-width: 760px) 92vw, 44vw"
-                        alt={mod.imageAlt}
-                        width="960"
-                        height="960"
-                        loading="lazy"
-                        decoding="async"
-                      />
+                      {relPos === 0 ? (
+                        <div className="course-photo-stage">
+                          {homePilatesPhotos.map((photo, pIdx) => {
+                            const isCurrent = pIdx === activePhoto;
+                            const isPrev = pIdx === prevPhoto && pIdx !== activePhoto;
+                            return (
+                              <img
+                                key={photo.id}
+                                className={`course-photo-layer${isCurrent ? ' is-current' : ''}${isPrev ? ' is-prev' : ''}${isAutoPaused ? ' is-paused' : ''}`}
+                                src={`/images/${photo.image}-960.webp`}
+                                srcSet={`/images/${photo.image}-640.webp 640w, /images/${photo.image}-960.webp 920w`}
+                                sizes="(max-width: 760px) 92vw, 44vw"
+                                style={{
+                                  objectPosition: photo.position,
+                                  '--kb-from': photo.kbFrom,
+                                  '--kb-to': photo.kbTo,
+                                }}
+                                alt={photo.alt}
+                                width="920"
+                                height="586"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            );
+                          })}
+                          {!reducedMotion && (
+                            <span
+                              key={`sheen-${activePhoto}-${photoTick}`}
+                              className="course-photo-sheen"
+                              aria-hidden="true"
+                            />
+                          )}
+                        </div>
+                      ) : (
+                        <img
+                          className="course-stack-img"
+                          src={`/images/${backPhoto.image}-960.webp`}
+                          srcSet={`/images/${backPhoto.image}-640.webp 640w, /images/${backPhoto.image}-960.webp 920w`}
+                          sizes="(max-width: 760px) 92vw, 44vw"
+                          style={{ objectPosition: backPhoto.position }}
+                          alt=""
+                          width="920"
+                          height="586"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
                       <div className="course-stack-overlay" aria-hidden="true" />
                       {relPos === 0 && <div className="course-stack-glare" aria-hidden="true" />}
 
@@ -337,6 +470,58 @@ export default function OnlineCourseSection({ courseUrl }) {
                         </div>
 
                         <div className="course-stack-bottom">
+                          {relPos === 0 && (
+                            <div className="course-photo-hud">
+                              <div
+                                className="course-photo-bars"
+                                role="tablist"
+                                aria-label="Escolher foto do Pilates em casa"
+                              >
+                                {homePilatesPhotos.map((photo, pIdx) => {
+                                  const isSelected = pIdx === activePhoto;
+                                  return (
+                                    <button
+                                      key={photo.id}
+                                      type="button"
+                                      role="tab"
+                                      aria-selected={isSelected}
+                                      aria-label={`Ver foto ${pIdx + 1} de ${homePilatesPhotos.length}: ${photo.label}`}
+                                      className={`course-photo-bar${isSelected ? ' is-active' : ''}${isAutoPaused ? ' is-paused' : ''}`}
+                                      onClick={e => {
+                                        e.stopPropagation();
+                                        goToPhoto(pIdx);
+                                      }}
+                                    >
+                                      <span className="course-photo-bar-track" aria-hidden="true">
+                                        {isSelected && (
+                                          <span
+                                            key={`${activePhoto}-${photoTick}`}
+                                            className="course-photo-bar-fill"
+                                          />
+                                        )}
+                                      </span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                              <button
+                                type="button"
+                                className="course-photo-pause"
+                                aria-pressed={isPhotoPaused}
+                                aria-label={
+                                  isPhotoPaused
+                                    ? 'Retomar troca automática das fotos'
+                                    : 'Pausar troca automática das fotos'
+                                }
+                                onClick={e => {
+                                  e.stopPropagation();
+                                  setIsPhotoPaused(p => !p);
+                                }}
+                              >
+                                {isPhotoPaused ? <PlayIcon /> : <PauseIcon />}
+                              </button>
+                            </div>
+                          )}
                           <strong className="course-stack-title">{mod.title}</strong>
                           <p>{mod.stageCaption}</p>
                           <div className="course-durations-line" aria-hidden="true">
@@ -412,7 +597,7 @@ export default function OnlineCourseSection({ courseUrl }) {
                       tabRefs.current[idx] = el;
                     }}
                     className="course-module-trigger"
-                    onClick={() => setActiveModule(idx)}
+                    onClick={() => selectModule(idx)}
                     onKeyDown={e => handleModuleKeyDown(e, idx)}
                   >
                     <span className="course-mod-bar" aria-hidden="true" />
@@ -457,7 +642,7 @@ export default function OnlineCourseSection({ courseUrl }) {
               target="_blank"
               rel="noopener noreferrer"
               data-magnetic
-              aria-label="Conhecer o curso online Desafio Pilates 8 GX na página oficial da Gabi Xavier"
+              aria-label="Conhecer o meu curso online Desafio Pilates 8 GX na página oficial"
             >
               <ArrowIcon className="arr-2" />
               <span className="btn-wa-text">Conhecer o Desafio Pilates 8 GX</span>
@@ -492,7 +677,7 @@ export default function OnlineCourseSection({ courseUrl }) {
           </h3>
           <p>
             Se você está pensando em começar o Desafio Pilates 8 GX em casa, aqui estão as
-            respostas para o que as alunas mais perguntam.
+            respostas para o que as minhas alunas mais perguntam.
           </p>
         </div>
 
