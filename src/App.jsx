@@ -393,12 +393,12 @@ const bentoCards = [
 const services = [
   {
     num: '01',
-    name: 'Pilates',
+    name: 'Pilates presencial',
     tag: 'Aulas presenciais no studio',
     title: 'Força e mobilidade no seu ritmo.',
     text: 'Aulas em aparelhos com orientação constante para alinhar a postura, fortalecer a musculatura e dar mais estabilidade aos seus movimentos.',
     highlights: ['Exercícios no seu ritmo', 'Acompanhamento de perto', 'Força, postura e mobilidade'],
-    cta: 'Agendar aula de Pilates',
+    cta: 'Agendar Pilates presencial',
   },
   {
     num: '02',
@@ -417,6 +417,26 @@ const services = [
     text: 'Sessões com bota de compressão pneumática e massagens que reduzem a fadiga muscular, estimulam a circulação e ajudam o corpo a descansar melhor.',
     highlights: ['Bota pneumática', 'Massagens terapêuticas e relaxantes', 'Recuperação pós-treino'],
     cta: 'Conhecer o Recovery GX',
+  },
+  {
+    num: '04',
+    name: 'Massagem',
+    tag: 'Massoterapia no studio',
+    title: 'Toque que alivia a tensão do corpo.',
+    text: 'Massagens terapêuticas e relaxantes para reduzir a fadiga muscular, estimular a circulação e ajudar o corpo a descansar melhor.',
+    highlights: ['Massagens terapêuticas e relaxantes', 'Alívio da fadiga muscular', 'Circulação e descanso'],
+    cta: 'Agendar massagem',
+  },
+  {
+    num: '05',
+    name: 'Pilates on-line',
+    tag: 'Desafio Pilates 8 GX',
+    title: 'O método da Gabi, na sua casa.',
+    text: 'Aulas gravadas em alta definição, do iniciante ao avançado, para praticar sem aparelhos. Cada aula dura até 20 minutos.',
+    highlights: ['Sem aparelhos', 'Do iniciante ao avançado', 'Aulas de até 20 min'],
+    cta: 'Ver o Pilates on-line',
+    href: '#pilates-online',
+    external: false,
   },
 ];
 
@@ -446,7 +466,7 @@ function InteractiveServices() {
           <em>pede hoje?</em>
         </h3>
         <p className="care-sel-intro">
-          Selecione uma modalidade para conhecer como cuidamos de você de perto no studio.
+          Selecione uma modalidade para conhecer o cuidado no studio ou o Pilates on-line.
         </p>
 
         <div className="care-sel-tabs" role="tablist" aria-label="Cuidados no studio">
@@ -509,9 +529,9 @@ function InteractiveServices() {
                 </ul>
                 <a
                   className="care-panel-cta"
-                  href={whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={service.href ?? whatsapp}
+                  target={service.external === false ? undefined : '_blank'}
+                  rel={service.external === false ? undefined : 'noopener noreferrer'}
                 >
                   <span>{service.cta}</span>
                   <Arrow />
@@ -528,27 +548,27 @@ function InteractiveServices() {
 const differentials = [
   {
     num: '01',
-    title: 'O seu ritmo em primeiro lugar',
-    desc: 'Cada pessoa chega com uma história e uma necessidade diferente. Os exercícios acompanham a sua evolução sem pressa e com correção de perto.',
-    icon: HeartPulseIcon,
-  },
-  {
-    num: '02',
-    title: 'Ambiente amplo e climatizado',
-    desc: 'Um studio iluminado, arejado e climatizado para você fazer sua aula ou sessão de fisioterapia com conforto em qualquer época do ano.',
+    title: 'Aparelhos completos',
+    desc: 'Reformers, barrel e espelhos em arco, com espaço livre para cada exercício fluir com conforto.',
     icon: SparkIcon,
   },
   {
+    num: '02',
+    title: 'Correção de postura',
+    desc: 'Cada movimento é ajustado para alinhar o corpo, fortalecer a musculatura e dar mais estabilidade.',
+    icon: HeartPulseIcon,
+  },
+  {
     num: '03',
-    title: 'Acessibilidade e estacionamento fácil',
-    desc: 'Acesso prático em Itajubá e tranquilidade para estacionar perto do studio no horário da sua aula.',
-    icon: CompassIcon,
+    title: 'Bota pneumática',
+    desc: 'Sessões de compressão que reduzem a fadiga muscular e ajudam as pernas a ficarem mais leves.',
+    icon: ShieldCheckIcon,
   },
   {
     num: '04',
-    title: 'Pilates, Fisio e Recovery no mesmo lugar',
-    desc: 'Você encontra aulas em aparelhos, reabilitação fisioterapêutica, bota pneumática e massagens integradas em um só studio.',
-    icon: ShieldCheckIcon,
+    title: 'Fisioterapia com convênios',
+    desc: 'Atendimento particular ou por convênio, focado na origem da dor para você retomar a rotina com segurança.',
+    icon: CompassIcon,
   },
 ];
 

@@ -5,7 +5,7 @@ const courseModules = [
   {
     num: '01',
     title: 'Fortalecimento do corpo todo',
-    duration: 'Aulas de 10 a 15 min',
+    duration: 'Até 20 min',
     summary:
       'Aulas completas que trabalham pernas, abdômen, costas e braços juntos, construindo força e resistência no seu ritmo.',
     objectives: [
@@ -58,7 +58,7 @@ const courseHighlights = [
     label: 'Do básico ao avançado, sem pular etapas.',
   },
   {
-    value: '10 a 15 min',
+    value: 'Até 20 min',
     label: 'Por dia.',
   },
   {
@@ -85,7 +85,7 @@ const courseFaqs = [
   {
     question: 'Quanto tempo dura cada aula e como funciona o acesso?',
     answer:
-      'Cada aula dura de 10 a 15 minutos por dia. São 4 exercícios por mês, e você pode assistir e realizar quantas vezes forem necessárias. O suporte fica disponível 24 horas.',
+      'Cada aula dura até 20 minutos. São 4 exercícios por mês, e você pode assistir e realizar quantas vezes forem necessárias. O suporte fica disponível 24 horas.',
   },
 ];
 
@@ -320,7 +320,7 @@ export default function OnlineCourseSection({ courseUrl }) {
                           <p>{mod.stageCaption}</p>
                           <div className="course-durations-line" aria-hidden="true">
                             <span>Rotinas de</span>
-                            <strong>10 a 15 min</strong>
+                            <strong>até 20 min</strong>
                           </div>
                         </div>
                       </figcaption>

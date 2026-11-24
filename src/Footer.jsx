@@ -122,7 +122,7 @@ export default function Footer({ whatsapp, email, phone, instagram, maps, wordma
             </li>
             <li>
               <a href="#cuidados" onClick={() => selectServiceTab(0)}>
-                Pilates em Aparelhos
+                Pilates presencial
               </a>
             </li>
             <li>
@@ -133,6 +133,11 @@ export default function Footer({ whatsapp, email, phone, instagram, maps, wordma
             <li>
               <a href="#cuidados" onClick={() => selectServiceTab(2)}>
                 Recovery GX
+              </a>
+            </li>
+            <li>
+              <a href="#cuidados" onClick={() => selectServiceTab(3)}>
+                Massagem
               </a>
             </li>
             <li>
