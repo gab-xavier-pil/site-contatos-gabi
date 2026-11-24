@@ -7,40 +7,39 @@ import Footer from './Footer.jsx';
 import StudioPhotoStrip from './StudioPhotoStrip.jsx';
 import OnlineCourseSection from './OnlineCourseSection.jsx';
 
-const whatsapp = `https://wa.me/5535998036832?text=${encodeURIComponent('Olá, Gabi! Vim pelo site e gostaria de agendar uma aula de Pilates no studio.')}`;
+const whatsappNumber = '5535998036832';
+const createWhatsappLink = message =>
+  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+const whatsapp = createWhatsappLink(
+  'Olá, Gabi! Vim pelo site e gostaria de agendar o cuidado do meu corpo no Studio GX.',
+);
 const email = 'gab_xavier@hotmail.com';
 const phone = '(35) 99803-6832';
 const instagram = 'https://www.instagram.com/pilatesgabixavier/';
-const maps = 'https://www.google.com/maps/search/?api=1&query=Eduardo+Piquet+78+S%C3%A3o+Vicente+Itajub%C3%A1+MG';
+const maps =
+  'https://www.google.com/maps/search/?api=1&query=Eduardo+Piquet+78+S%C3%A3o+Vicente+Itajub%C3%A1+MG';
 const onlineCourseUrl = 'https://www.pilatesgabixavier.com.br/landing';
 
 function Arrow({ direction = 'right', ...props }) {
+  const rotation =
+    direction === 'left'
+      ? 'rotate(180deg)'
+      : direction === 'down'
+        ? 'rotate(90deg)'
+        : undefined;
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"
       {...props}
-      style={direction === 'left' ? { transform: 'rotate(180deg)' } : undefined}
+      style={rotation ? { transform: rotation } : undefined}
     >
       <path
         d="M4 12h15m-6-6 6 6-6 6"
         stroke="currentColor"
         strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ChevronRight(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="m9 6 6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -61,67 +60,18 @@ function CloseIcon(props) {
   );
 }
 
-function SparkIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M12 3v4m0 10v4M3 12h4m10 0h4m-2.93-6.07-2.83 2.83m-6.48 6.48-2.83 2.83m0-12.14 2.83 2.83m6.48 6.48 2.83 2.83"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function HeartPulseIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M3.5 12h4l2-4 3 8 2-4h6"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ShieldCheckIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M12 3 5 6v6c0 4.5 3 8.3 7 9.5 4-1.2 7-5 7-9.5V6l-7-3Zm-2.5 9 1.8 1.8 3.7-3.8"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function CompassIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.5" />
-      <path
-        d="m14.8 9.2-1.6 4.4-4.4 1.6 1.6-4.4 4.4-1.6Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ScheduleLink({ className = '', children = 'Agenda o Cuidado do Seu Corpo', light = false, animated = false }) {
+function ScheduleLink({
+  className = '',
+  children = 'Agenda o Cuidado do Seu Corpo',
+  light = false,
+  animated = false,
+  href = whatsapp,
+}) {
   if (animated) {
     return (
       <a
         className={`btn-hero-wa ${light ? 'btn-hero-wa--light' : ''} ${className}`}
-        href={whatsapp}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         data-magnetic
@@ -136,7 +86,7 @@ function ScheduleLink({ className = '', children = 'Agenda o Cuidado do Seu Corp
   return (
     <a
       className={`button ${light ? 'button-light' : ''} ${className}`}
-      href={whatsapp}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       data-magnetic
@@ -374,211 +324,261 @@ function StudioGallery() {
 const bentoCards = [
   {
     num: '01',
-    title: 'Equipamentos e amplitude',
-    desc: 'Aparelhos em madeira, espelhos em arco e espaço livre para cada exercício fluir com conforto.',
+    title: 'Estrutura completa',
+    desc: 'Três kits de aparelhos em madeira, espelhos em arco e espaço amplo para cada exercício fluir com calma.',
     image: 'hero-studio-arcos',
     alt: 'Reformers alinhados diante dos espelhos em arco do Studio GX',
     badge: 'Studio GX · Itajubá',
   },
   {
     num: '02',
-    title: 'Ambiente vivo e climatizado',
-    desc: 'Iluminação acolhedora, plantas naturais e temperatura agradável em todas as estações.',
+    title: 'Conforto e fácil acesso',
+    desc: 'Ambiente climatizado, acolhedor, com acessibilidade e estacionamento fácil no bairro São Vicente.',
     image: 'hero-studio-plantas',
     alt: 'Reformers de madeira e plantas no Studio GX',
-    badge: 'Conforto em cada aula',
+    badge: 'São Vicente · Itajubá',
   },
 ];
 
-const services = [
+const servicesOverview = [
   {
     num: '01',
-    name: 'Pilates presencial',
-    tag: 'Aulas presenciais no studio',
-    title: 'Força e mobilidade no seu ritmo.',
-    text: 'Aulas em aparelhos com orientação constante para alinhar a postura, fortalecer a musculatura e dar mais estabilidade aos seus movimentos.',
-    highlights: ['Exercícios no seu ritmo', 'Acompanhamento de perto', 'Força, postura e mobilidade'],
-    cta: 'Agendar Pilates presencial',
+    id: 'servico-fisioterapia',
+    name: 'Fisioterapia',
+    mode: 'Presencial · Studio e domiciliar',
+    isOnline: false,
+    shortDesc: 'Reabilitação clínica, alívio de dores e retorno dos movimentos. Particular e convênios.',
   },
   {
     num: '02',
-    name: 'Fisioterapia',
-    tag: 'Particular e convênios pelo WhatsApp',
-    title: 'Reabilitação para voltar a se mover bem.',
-    text: 'Tratamento voltado à origem da sua dor ou limitação, unindo reabilitação clínica e movimento para você retomar sua rotina com segurança.',
-    highlights: ['Recuperação de movimentos', 'Alívio de dores e fortalecimento', 'Atendimento particular e convênios'],
-    cta: 'Conversar sobre Fisioterapia',
+    id: 'servico-pilates',
+    name: 'Pilates presencial no studio',
+    mode: 'Presencial · Itajubá',
+    isOnline: false,
+    shortDesc: 'Aulas em aparelhos com acompanhamento próximo, no seu ritmo. Particular, Wellhub e TotalPass.',
   },
   {
     num: '03',
-    name: 'Recovery GX',
-    tag: 'Recuperação muscular e descanso',
-    title: 'Alívio para o cansaço e pernas leves.',
-    text: 'Sessões com bota de compressão pneumática e massagens que reduzem a fadiga muscular, estimulam a circulação e ajudam o corpo a descansar melhor.',
-    highlights: ['Bota pneumática', 'Massagens terapêuticas e relaxantes', 'Recuperação pós-treino'],
-    cta: 'Conhecer o Recovery GX',
+    id: 'pilates-online',
+    name: 'Desafio GX',
+    mode: '100% On-line · Aulas em casa',
+    isOnline: true,
+    shortDesc: 'Programa de Pilates on-line gravado pela Gabi para praticar em casa, sem aparelhos.',
   },
   {
     num: '04',
-    name: 'Massagem',
-    tag: 'Massoterapia no studio',
-    title: 'Toque que alivia a tensão do corpo.',
-    text: 'Massagens terapêuticas e relaxantes para reduzir a fadiga muscular, estimular a circulação e ajudar o corpo a descansar melhor.',
-    highlights: ['Massagens terapêuticas e relaxantes', 'Alívio da fadiga muscular', 'Circulação e descanso'],
-    cta: 'Agendar massagem',
+    id: 'servico-recovery',
+    name: 'Recovery GX',
+    mode: 'Presencial · Studio GX',
+    isOnline: false,
+    shortDesc: 'Sessões com bota de compressão pneumática para aliviar a fadiga e deixar as pernas mais leves.',
   },
   {
     num: '05',
-    name: 'Pilates on-line',
-    tag: 'Desafio Pilates 8 GX',
-    title: 'O método da Gabi, na sua casa.',
-    text: 'Aulas gravadas em alta definição, do iniciante ao avançado, para praticar sem aparelhos. Cada aula dura até 20 minutos.',
-    highlights: ['Sem aparelhos', 'Do iniciante ao avançado', 'Aulas de até 20 min'],
-    cta: 'Ver o Pilates on-line',
-    href: '#pilates-online',
-    external: false,
+    id: 'servico-massagens',
+    name: 'Massagens',
+    mode: 'Presencial · Studio GX',
+    isOnline: false,
+    shortDesc: 'Drenagem linfática, massagem modeladora, relaxante e terapêutica para aliviar tensões.',
   },
 ];
 
-function InteractiveServices() {
-  const [active, setActive] = useState(0);
-  const tabs = useRef([]);
-
-  function onKeyDown(event, index) {
-    let next;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % services.length;
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index + services.length - 1) % services.length;
-    if (event.key === 'Home') next = 0;
-    if (event.key === 'End') next = services.length - 1;
-    if (next === undefined) return;
-    event.preventDefault();
-    setActive(next);
-    tabs.current[next]?.focus();
-  }
-
-  return (
-    <div className="care-selector">
-      <div className="care-sel-left" data-reveal="left">
-        <p className="eyebrow">CUIDADOS NO STUDIO GX</p>
-        <h3 className="care-sel-heading">
-          O que o seu corpo
-          <br />
-          <em>pede hoje?</em>
-        </h3>
-        <p className="care-sel-intro">
-          Selecione uma modalidade para conhecer o cuidado no studio ou o Pilates on-line.
-        </p>
-
-        <div className="care-sel-tabs" role="tablist" aria-label="Cuidados no studio">
-          {services.map((service, index) => {
-            const isSelected = active === index;
-            return (
-              <button
-                key={service.name}
-                type="button"
-                role="tab"
-                id={`service-tab-${index}`}
-                aria-controls={`service-panel-${index}`}
-                aria-selected={isSelected}
-                tabIndex={isSelected ? 0 : -1}
-                className={`care-tab-btn${isSelected ? ' is-active' : ''}`}
-                ref={element => {
-                  tabs.current[index] = element;
-                }}
-                onClick={() => setActive(index)}
-                onKeyDown={event => onKeyDown(event, index)}
-              >
-                <span className="care-tab-bar" aria-hidden="true" />
-                <span className="care-tab-num">{service.num}</span>
-                <span className="care-tab-label">{service.name}</span>
-                <ChevronRight className="care-tab-chevron" />
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="care-sel-right" data-reveal="right">
-        {services.map((service, index) => {
-          const isSelected = active === index;
-          return (
-            <div
-              key={service.name}
-              className={`care-panel${isSelected ? ' is-active' : ''}`}
-              role="tabpanel"
-              id={`service-panel-${index}`}
-              aria-labelledby={`service-tab-${index}`}
-              hidden={!isSelected}
-              tabIndex="0"
-            >
-              <span className="care-deco-num" aria-hidden="true">
-                {service.num}
-              </span>
-              <span className="care-blob" aria-hidden="true" />
-              <div className="care-panel-content">
-                <span className="care-tag">{service.tag}</span>
-                <h4>{service.title}</h4>
-                <p>{service.text}</p>
-                <ul className="care-highlights">
-                  {service.highlights.map(item => (
-                    <li key={item}>
-                      <span className="care-dot" aria-hidden="true" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  className="care-panel-cta"
-                  href={service.href ?? whatsapp}
-                  target={service.external === false ? undefined : '_blank'}
-                  rel={service.external === false ? undefined : 'noopener noreferrer'}
-                >
-                  <span>{service.cta}</span>
-                  <Arrow />
-                </a>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-const differentials = [
+const studioServicesBeforeOnline = [
   {
     num: '01',
-    title: 'Aparelhos completos',
-    desc: 'Reformers, barrel e espelhos em arco, com espaço livre para cada exercício fluir com conforto.',
-    icon: SparkIcon,
+    id: 'servico-fisioterapia',
+    name: 'Fisioterapia',
+    modeBadge: 'PRESENCIAL NO STUDIO E DOMICILIAR',
+    headingStart: 'Reabilitação para',
+    headingEmphasis: 'voltar a se mover sem dor.',
+    lead: 'Atendimento voltado à origem da sua dor ou limitação, unindo fisioterapia clínica e movimento para recuperar força, vitalidade e segurança na rotina.',
+    details:
+      'Além das sessões no Studio GX em Itajubá, também oferecemos atendimento domiciliar para quem precisa de cuidado no conforto de casa.',
+    highlights: [
+      'Recuperação de movimentos e alívio de dores',
+      'Atendimento presencial no studio ou domiciliar',
+      'Particular e convênios: Unimed, SulAmérica, CASSI, Caixa, FuSEx e SPA',
+    ],
+    ctaLabel: 'Conversar sobre Fisioterapia',
+    ctaHref: createWhatsappLink(
+      'Olá, Gabi! Vim pelo site e gostaria de saber mais sobre atendimento de Fisioterapia.',
+    ),
+    imageSrc: '/images/faixa/ft-17.webp',
+    imageAlt: 'Gabi Xavier conduzindo sessão de fisioterapia na sala clínica do Studio GX',
+    imageWidth: 858,
+    imageHeight: 720,
+    imageCaption: 'Atendimento particular, convênios e domiciliar',
+    reverse: false,
   },
   {
     num: '02',
-    title: 'Correção de postura',
-    desc: 'Cada movimento é ajustado para alinhar o corpo, fortalecer a musculatura e dar mais estabilidade.',
-    icon: HeartPulseIcon,
-  },
-  {
-    num: '03',
-    title: 'Bota pneumática',
-    desc: 'Sessões de compressão que reduzem a fadiga muscular e ajudam as pernas a ficarem mais leves.',
-    icon: ShieldCheckIcon,
-  },
-  {
-    num: '04',
-    title: 'Fisioterapia com convênios',
-    desc: 'Atendimento particular ou por convênio, focado na origem da dor para você retomar a rotina com segurança.',
-    icon: CompassIcon,
+    id: 'servico-pilates',
+    name: 'Pilates presencial no studio',
+    modeBadge: 'PRESENCIAL EM ITAJUBÁ · STUDIO GX',
+    headingStart: 'Força, postura e mobilidade',
+    headingEmphasis: 'no seu ritmo.',
+    lead: 'Aulas presenciais em aparelhos com orientação próxima da Gabi e equipe, ajustando cada exercício para fortalecer a musculatura, alinhar a postura e ganhar condicionamento físico.',
+    details:
+      'Nada de aula no automático: o acompanhamento respeita o momento do seu corpo — no studio em Itajubá ou no atendimento domiciliar.',
+    highlights: [
+      'Três kits completos de aparelhos com acompanhamento de perto',
+      'Fortalecimento, resistência física, postura e mobilidade',
+      'Particular e parcerias Wellhub (Gympass) e TotalPass',
+    ],
+    ctaLabel: 'Agendar Pilates presencial',
+    ctaHref: createWhatsappLink(
+      'Olá, Gabi! Vim pelo site e gostaria de agendar uma aula de Pilates presencial no studio.',
+    ),
+    imageSrc: '/images/hero-gabi-reformer-960.webp',
+    imageSrcSet: '/images/hero-gabi-reformer-640.webp 640w, /images/hero-gabi-reformer-960.webp 960w',
+    imageAlt: 'Gabi Xavier demonstrando exercício de Pilates no aparelho reformer no Studio GX',
+    imageWidth: 960,
+    imageHeight: 960,
+    imageCaption: 'Aulas em aparelhos no Studio GX em Itajubá',
+    reverse: true,
   },
 ];
 
+const studioServicesAfterOnline = [
+  {
+    num: '04',
+    id: 'servico-recovery',
+    name: 'Recovery GX',
+    modeBadge: 'PRESENCIAL NO STUDIO · BOTA PNEUMÁTICA',
+    headingStart: 'Recuperação muscular',
+    headingEmphasis: 'e pernas mais leves.',
+    lead: 'Sessões com bota de compressão pneumática pensadas para quem treina, passa muito tempo em pé ou sente o corpo cansado ao fim da semana.',
+    details:
+      'A compressão sequencial estimula a circulação, reduz a fadiga muscular e acelera o descanso para você voltar mais leve às suas atividades.',
+    highlights: [
+      'Sessões com bota de compressão pneumática',
+      'Alívio da fadiga muscular e sensação de peso nas pernas',
+      'Estímulo à circulação e recuperação pós-treino',
+    ],
+    ctaLabel: 'Agendar Recovery GX',
+    ctaHref: createWhatsappLink(
+      'Olá, Gabi! Vim pelo site e gostaria de agendar uma sessão de Recovery GX com bota pneumática.',
+    ),
+    imageSrc: '/images/hero-studio-barrel-960.webp',
+    imageSrcSet: '/images/hero-studio-barrel-640.webp 640w, /images/hero-studio-barrel-960.webp 960w',
+    imageAlt: 'Ambiente do Studio GX preparado para sessões de cuidado e recuperação corporal',
+    imageWidth: 960,
+    imageHeight: 960,
+    imageCaption: 'Recuperação muscular presencial no Studio GX',
+    reverse: false,
+  },
+  {
+    num: '05',
+    id: 'servico-massagens',
+    name: 'Massagens',
+    modeBadge: 'PRESENCIAL NO STUDIO · MASSOTERAPIA',
+    headingStart: 'Toque que solta',
+    headingEmphasis: 'a tensão do corpo.',
+    lead: 'Drenagem linfática, massagem modeladora, relaxante e terapêutica realizadas no studio para aliviar pontos de tensão, ativar a circulação e devolver leveza.',
+    details:
+      'Cada sessão é conduzida em um ambiente reservado e tranquilo, cuidando tanto do relaxamento quanto do bem-estar físico do dia a dia.',
+    highlights: [
+      'Drenagem linfática e massagem modeladora',
+      'Massagem relaxante e terapêutica para alívio de tensões',
+      'Ambiente reservado, acolhedor e tranquilo no studio',
+    ],
+    ctaLabel: 'Agendar massagem',
+    ctaHref: createWhatsappLink(
+      'Olá, Gabi! Vim pelo site e gostaria de agendar uma sessão de massagem no Studio GX.',
+    ),
+    imageSrc: '/images/faixa/ft-18.webp',
+    imageAlt: 'Gabi Xavier realizando massagem terapêutica e relaxante no Studio GX',
+    imageWidth: 576,
+    imageHeight: 720,
+    imageCaption: 'Drenagem, modeladora, relaxante e terapêutica',
+    reverse: true,
+  },
+];
+
+function ServiceStoryBlock({ service }) {
+  return (
+    <article
+      className={`service-chapter${service.reverse ? ' is-reversed' : ''}`}
+      id={service.id}
+      aria-labelledby={`${service.id}-title`}
+    >
+      <div className="service-chapter-marker" data-reveal="up">
+        <div className="chapter-rule-row">
+          <span className="chapter-rule" aria-hidden="true" />
+          <span className="chapter-kicker">
+            <strong>{service.num} / 05</strong>
+            <span className="chapter-sep" aria-hidden="true">·</span>
+            <span>{service.modeBadge}</span>
+          </span>
+          <span className="chapter-rule" aria-hidden="true" />
+        </div>
+        <h3 className="chapter-banner-title" id={`${service.id}-title`}>
+          <span className="chapter-banner-num" aria-hidden="true">{service.num}</span>
+          <span>{service.name}</span>
+        </h3>
+      </div>
+
+      <div className="service-story-grid">
+        <figure
+          className="service-story-media"
+          data-reveal={service.reverse ? 'right' : 'left'}
+        >
+          <div className="service-story-frame">
+            <img
+              src={service.imageSrc}
+              srcSet={service.imageSrcSet}
+              sizes="(max-width: 760px) 92vw, 46vw"
+              alt={service.imageAlt}
+              width={service.imageWidth}
+              height={service.imageHeight}
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="service-media-num" aria-hidden="true">
+              {service.num}
+            </span>
+          </div>
+          <figcaption className="service-media-caption">
+            <span className="eyebrow-dot" aria-hidden="true" />
+            <span>{service.imageCaption}</span>
+          </figcaption>
+        </figure>
+
+        <div
+          className="service-story-body"
+          data-reveal={service.reverse ? 'left' : 'right'}
+        >
+          <p className="service-story-headline">
+            {service.headingStart}{' '}
+            <em>{service.headingEmphasis}</em>
+          </p>
+          <p className="service-story-lead">{service.lead}</p>
+          <p className="service-story-details">{service.details}</p>
+
+          <ul className="service-story-list">
+            {service.highlights.map(item => (
+              <li key={item}>
+                <span className="service-list-dot" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="service-story-actions">
+            <ScheduleLink href={service.ctaHref}>{service.ctaLabel}</ScheduleLink>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 const marqueeItems = [
-  'PILATES EM APARELHOS',
-  'FISIOTERAPIA',
-  'RECOVERY GX',
-  'BOTA PNEUMÁTICA',
-  'MASSOTERAPIA',
-  'POSTURA E MOBILIDADE',
+  '01 · FISIOTERAPIA',
+  '02 · PILATES PRESENCIAL',
+  '03 · DESAFIO GX ON-LINE',
+  '04 · RECOVERY GX',
+  '05 · MASSAGENS',
   'STUDIO GX · ITAJUBÁ',
 ];
 
@@ -653,11 +653,10 @@ export default function App() {
             <Wordmark />
 
             <nav className="pill-nav" aria-label="Navegação principal">
-              <a href="#espaco">O studio</a>
-              <a href="#cuidados">Cuidados</a>
-              <a href="#diferenciais">Diferenciais</a>
+              <a href="#espaco">O espaço</a>
+              <a href="#servicos">Serviços</a>
+              <a href="#pilates-online">Desafio GX</a>
               <a href="#gabi">Gabi</a>
-              <a href="#pilates-online">Pilates Online</a>
               <a href="#avaliacoes">Avaliações</a>
               <a href="#contato">Localização</a>
             </nav>
@@ -707,17 +706,17 @@ export default function App() {
               <ul className="mobile-nav-list">
                 <li>
                   <a href="#espaco" onClick={() => setMobileNavOpen(false)}>
-                    <span>01</span>O studio
+                    <span>01</span>O espaço
                   </a>
                 </li>
                 <li>
-                  <a href="#cuidados" onClick={() => setMobileNavOpen(false)}>
-                    <span>02</span>Cuidados
+                  <a href="#servicos" onClick={() => setMobileNavOpen(false)}>
+                    <span>02</span>Serviços prestados
                   </a>
                 </li>
                 <li>
-                  <a href="#diferenciais" onClick={() => setMobileNavOpen(false)}>
-                    <span>03</span>Diferenciais
+                  <a href="#pilates-online" onClick={() => setMobileNavOpen(false)}>
+                    <span>03</span>Desafio GX (On-line)
                   </a>
                 </li>
                 <li>
@@ -726,18 +725,13 @@ export default function App() {
                   </a>
                 </li>
                 <li>
-                  <a href="#pilates-online" onClick={() => setMobileNavOpen(false)}>
-                    <span>05</span>Pilates Online
-                  </a>
-                </li>
-                <li>
                   <a href="#avaliacoes" onClick={() => setMobileNavOpen(false)}>
-                    <span>06</span>Avaliações
+                    <span>05</span>Avaliações
                   </a>
                 </li>
                 <li>
                   <a href="#contato" onClick={() => setMobileNavOpen(false)}>
-                    <span>07</span>Localização
+                    <span>06</span>Localização
                   </a>
                 </li>
               </ul>
@@ -786,7 +780,7 @@ export default function App() {
           <div className="hero-copy">
             <p className="eyebrow hero-eyebrow">
               <span className="eyebrow-dot" aria-hidden="true" />
-              AULAS PRESENCIAIS EM ITAJUBÁ
+              STUDIO GX · ITAJUBÁ E ON-LINE
             </p>
             <h1 id="hero-title">
               <span className="line-wrap">
@@ -799,59 +793,23 @@ export default function App() {
               </span>
             </h1>
             <p className="hero-description">
-              No Studio GX, em Itajubá, Gabi Xavier conduz aulas de Pilates em aparelhos e
-              sessões de fisioterapia para quem precisa aliviar dores, recuperar movimentos e
-              ganhar força no dia a dia. O acompanhamento é feito de perto, respeitando o
-              ritmo do seu corpo em cada exercício.
+              No Studio GX, em Itajubá, Gabi Xavier e sua equipe cuidam do seu corpo com
+              fisioterapia, Pilates presencial, Recovery GX e massagens — além do Desafio GX
+              on-line para quem prefere treinar em casa.
             </p>
-            <ScheduleLink animated>Agenda o Cuidado do Seu Corpo</ScheduleLink>
+            <div className="hero-actions">
+              <ScheduleLink animated>Agenda o Cuidado do Seu Corpo</ScheduleLink>
+              <a className="hero-secondary-link" href="#servicos">
+                <span>Ver os 5 serviços</span>
+                <Arrow direction="down" />
+              </a>
+            </div>
           </div>
 
           <div className="hero-visual">
             <HeroSlideshow />
           </div>
         </section>
-
-        <div className="hero-stats" aria-label="Destaques do Studio GX">
-          <div className="hero-stats-inner" data-stagger>
-            <div className="hero-stat">
-              <div className="stat-icon">
-                <HeartPulseIcon />
-              </div>
-              <div className="stat-info">
-                <strong>O seu ritmo</strong>
-                <span>Atenção próxima em cada aula</span>
-              </div>
-            </div>
-            <div className="hero-stat">
-              <div className="stat-icon">
-                <SparkIcon />
-              </div>
-              <div className="stat-info">
-                <strong>Ambiente climatizado</strong>
-                <span>Espaço amplo e acolhedor</span>
-              </div>
-            </div>
-            <div className="hero-stat">
-              <div className="stat-icon">
-                <CompassIcon />
-              </div>
-              <div className="stat-info">
-                <strong>Fácil de estacionar</strong>
-                <span>Acesso prático e com acessibilidade</span>
-              </div>
-            </div>
-            <div className="hero-stat">
-              <div className="stat-icon">
-                <ShieldCheckIcon />
-              </div>
-              <div className="stat-info">
-                <strong>Cuidado integrado</strong>
-                <span>Pilates, Fisioterapia e Recovery GX</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div className="gx-marquee" aria-hidden="true">
           <div className="marquee-track">
@@ -864,15 +822,19 @@ export default function App() {
           </div>
         </div>
 
+        {/* ── 1. O ESPAÇO (sem repetição) ── */}
         <section className="studio section" id="espaco" aria-labelledby="studio-title">
           <div className="studio-heading" data-reveal="up">
-            <p className="eyebrow">ENTRE. RESPIRE. SINTA-SE BEM.</p>
+            <p className="eyebrow">O ESPAÇO · STUDIO GX EM ITAJUBÁ</p>
             <h2 id="studio-title">
               Um espaço pensado
               <br />
               <em>para o seu bem-estar.</em>
             </h2>
-            <p>Um studio iluminado, com aparelhos completos e espaço livre para você treinar e se recuperar com calma.</p>
+            <p>
+              Um studio amplo, iluminado e acolhedor no bairro São Vicente, preparado para você
+              cuidar do corpo com calma e orientação de perto.
+            </p>
           </div>
 
           <div className="studio-showcase">
@@ -907,47 +869,74 @@ export default function App() {
           </div>
 
           <StudioPhotoStrip />
-          <div id="cuidados" className="care-section-wrap">
-            <InteractiveServices />
-          </div>
-
-          <div id="diferenciais" className="dif-block">
-            <div className="dif-header" data-reveal="up">
-              <div>
-                <p className="eyebrow">POR QUE O STUDIO GX</p>
-                <h3 className="dif-title">
-                  Uma nova relação
-                  <br />
-                  <em>com o seu corpo.</em>
-                </h3>
-              </div>
-              <p className="dif-intro">
-                Cuidado presencial pensado para quem busca constância, conforto e orientação de perto em Itajubá.
-              </p>
-            </div>
-
-            <ul className="dif-list" data-stagger>
-              {differentials.map(item => {
-                const Icon = item.icon;
-                return (
-                  <li className="dif-item" key={item.num}>
-                    <span className="dif-num" aria-hidden="true">
-                      {item.num}
-                    </span>
-                    <div className="dif-item-head">
-                      <span className="dif-icon" aria-hidden="true">
-                        <Icon />
-                      </span>
-                      <h4>{item.title}</h4>
-                    </div>
-                    <p className="dif-item-desc">{item.desc}</p>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
         </section>
 
+        {/* ── 2. SERVIÇOS PRESTADOS — ÍNDICE NUMERADO (01 A 05) ── */}
+        <section className="services-overview-section section" id="servicos" aria-labelledby="services-title">
+          <div className="services-overview-header" data-reveal="up">
+            <div className="chapter-rule-row chapter-rule-row--section">
+              <span className="chapter-rule" aria-hidden="true" />
+              <p className="eyebrow">SERVIÇOS PRESTADOS · 01 A 05</p>
+              <span className="chapter-rule" aria-hidden="true" />
+            </div>
+            <h2 id="services-title">
+              Serviços oferecidos
+              <br />
+              <em>para cuidar do seu corpo.</em>
+            </h2>
+            <p className="services-overview-intro">
+              Veja abaixo tudo o que a Gabi Xavier oferece — presencialmente no Studio GX em
+              Itajubá ou no formato on-line. Continue rolando a página para conhecer cada um em
+              detalhes, ou clique no serviço desejado.
+            </p>
+          </div>
+
+          <ol className="services-index-list" data-stagger aria-label="Lista numerada de serviços prestados">
+            {servicesOverview.map(item => (
+              <li key={item.num} className="services-index-row">
+                <a
+                  className={`services-index-link${item.isOnline ? ' is-online' : ''}`}
+                  href={`#${item.id}`}
+                >
+                  <span className="services-index-num" aria-hidden="true">
+                    {item.num}
+                  </span>
+                  <div className="services-index-main">
+                    <div className="services-index-top">
+                      <strong>{item.name}</strong>
+                      <span className={`services-mode-pill${item.isOnline ? ' is-online' : ''}`}>
+                        {item.mode}
+                      </span>
+                    </div>
+                    <p>{item.shortDesc}</p>
+                  </div>
+                  <span className="services-index-arrow" aria-hidden="true">
+                    <Arrow direction="down" />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ── 3. DETALHAMENTO SEQUENCIAL: 01 FISIOTERAPIA & 02 PILATES PRESENCIAL ── */}
+        <section className="services-chapters-section section" aria-label="Detalhes dos serviços 01 e 02">
+          {studioServicesBeforeOnline.map(service => (
+            <ServiceStoryBlock key={service.num} service={service} />
+          ))}
+        </section>
+
+        {/* ── 4. SERVIÇO 03: DESAFIO GX (PILATES ON-LINE) ── */}
+        <OnlineCourseSection courseUrl={onlineCourseUrl} />
+
+        {/* ── 5. DETALHAMENTO SEQUENCIAL: 04 RECOVERY GX & 05 MASSAGENS ── */}
+        <section className="services-chapters-section section" aria-label="Detalhes dos serviços 04 e 05">
+          {studioServicesAfterOnline.map(service => (
+            <ServiceStoryBlock key={service.num} service={service} />
+          ))}
+        </section>
+
+        {/* ── 6. QUEM CUIDA DE VOCÊ (GABI XAVIER) ── */}
         <section className="about section" id="gabi" aria-labelledby="about-title">
           <div className="about-portrait-wrap" data-reveal="scale">
             <span className="about-quote-mark" aria-hidden="true">
@@ -983,21 +972,24 @@ export default function App() {
               </em>
             </h2>
             <p>
-              Fisioterapeuta e instrutora de Pilates em Itajubá, Gabi Xavier criou o Studio GX para oferecer um atendimento em que você não faz aula no automático.
+              Fisioterapeuta e instrutora de Pilates em Itajubá, Gabi Xavier criou o Studio GX
+              para oferecer um atendimento em que você não faz aula no automático — hoje com
+              equipe completa e três kits de aparelhos.
             </p>
             <p>
-              Cada sessão acompanha de perto como o seu corpo responde, seja para tratar uma dor, ganhar força ou manter uma rotina ativa com segurança.
+              Cada sessão acompanha de perto como o seu corpo responde, seja para tratar uma dor,
+              ganhar força, se recuperar melhor ou manter uma rotina ativa com segurança.
             </p>
 
             <div className="about-stats-strip">
               <div className="about-stat-item">
-                <strong>Pilates &amp; Fisio</strong>
-                <span>Cuidado presencial integrado</span>
+                <strong>Studio GX</strong>
+                <span>Fisio, Pilates, Recovery e Massagens</span>
               </div>
               <span className="about-stat-divider" aria-hidden="true" />
               <div className="about-stat-item">
-                <strong>Recovery GX</strong>
-                <span>Bota pneumática e massagens</span>
+                <strong>Desafio GX</strong>
+                <span>Aulas de Pilates 100% on-line</span>
               </div>
               <span className="about-stat-divider" aria-hidden="true" />
               <div className="about-stat-item">
@@ -1016,8 +1008,6 @@ export default function App() {
             </a>
           </div>
         </section>
-
-        <OnlineCourseSection courseUrl={onlineCourseUrl} />
 
         <ReviewsSection />
 

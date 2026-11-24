@@ -62,11 +62,6 @@ function ShieldCheckIcon(props) {
   );
 }
 
-function selectServiceTab(index) {
-  const tab = document.getElementById(`service-tab-${index}`);
-  if (tab) tab.click();
-}
-
 export default function Footer({ whatsapp, email, phone, instagram, maps, wordmark }) {
   return (
     <footer className="site-footer" id="contato" itemScope itemType="https://schema.org/MedicalClinic">
@@ -118,36 +113,28 @@ export default function Footer({ whatsapp, email, phone, instagram, maps, wordma
               <a href="#inicio">Início</a>
             </li>
             <li>
-              <a href="#espaco">O Studio</a>
+              <a href="#espaco">O Espaço</a>
             </li>
             <li>
-              <a href="#cuidados" onClick={() => selectServiceTab(0)}>
-                Pilates presencial
-              </a>
+              <a href="#servicos">Serviços prestados</a>
             </li>
             <li>
-              <a href="#cuidados" onClick={() => selectServiceTab(1)}>
-                Fisioterapia
-              </a>
+              <a href="#servico-fisioterapia">01 · Fisioterapia</a>
             </li>
             <li>
-              <a href="#cuidados" onClick={() => selectServiceTab(2)}>
-                Recovery GX
-              </a>
+              <a href="#servico-pilates">02 · Pilates presencial</a>
             </li>
             <li>
-              <a href="#cuidados" onClick={() => selectServiceTab(3)}>
-                Massagem
-              </a>
+              <a href="#pilates-online">03 · Desafio GX (On-line)</a>
             </li>
             <li>
-              <a href="#diferenciais">Diferenciais</a>
+              <a href="#servico-recovery">04 · Recovery GX</a>
+            </li>
+            <li>
+              <a href="#servico-massagens">05 · Massagens</a>
             </li>
             <li>
               <a href="#gabi">Conheça a Gabi</a>
-            </li>
-            <li>
-              <a href="#pilates-online">Pilates Online · 8 GX</a>
             </li>
           </ul>
         </nav>

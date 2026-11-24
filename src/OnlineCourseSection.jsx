@@ -234,6 +234,27 @@ export default function OnlineCourseSection({ courseUrl }) {
 
       <div className="course-ambient" aria-hidden="true" />
 
+      {/* ── Divisor centralizado de capítulo (Serviço 03 de 05 · On-line) ── */}
+      <div className="service-chapter-marker service-chapter-marker--online" data-reveal="up">
+        <div className="chapter-rule-row">
+          <span className="chapter-rule" aria-hidden="true" />
+          <span className="chapter-kicker chapter-kicker--online">
+            <strong>03 / 05</strong>
+            <span className="chapter-sep" aria-hidden="true">·</span>
+            <span>MODALIDADE 100% ON-LINE</span>
+          </span>
+          <span className="chapter-rule" aria-hidden="true" />
+        </div>
+        <p className="chapter-banner-title">
+          <span className="chapter-banner-num" aria-hidden="true">03</span>
+          <span>Desafio GX — Pilates on-line</span>
+        </p>
+        <p className="chapter-online-note">
+          Diferente das aulas presenciais em Itajubá, aqui você pratica em casa com videoaulas
+          gravadas pela Gabi, sem precisar de aparelhos.
+        </p>
+      </div>
+
       <div className="course-header" data-reveal="up">
         <div className="course-header-left">
           <p className="eyebrow course-eyebrow">
