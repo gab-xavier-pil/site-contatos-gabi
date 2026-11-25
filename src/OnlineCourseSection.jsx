@@ -184,8 +184,14 @@ export default function OnlineCourseSection({ courseUrl }) {
   const [isPhotoPaused, setIsPhotoPaused] = useState(false);
   const [isStageHovered, setIsStageHovered] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const stageColumnRef = useRef(null);
   const stageRef = useRef(null);
-  const rafRef = useRef(null);
+  const stage3dRef = useRef(null);
+  const orbitRef = useRef(null);
+  const shadowRef = useRef(null);
+  const plaqueRef = useRef(null);
+  const glareRef = useRef(null);
+  const rimRef = useRef(null);
   const tabRefs = useRef([]);
 
   const isAutoPaused = isPhotoPaused || isStageHovered || reducedMotion;
@@ -208,8 +214,12 @@ export default function OnlineCourseSection({ courseUrl }) {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const sync = () => setReducedMotion(mq.matches);
     sync();
-    mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
+    if (mq.addEventListener) {
+      mq.addEventListener('change', sync);
+      return () => mq.removeEventListener('change', sync);
+    }
+    mq.addListener(sync);
+    return () => mq.removeListener(sync);
   }, []);
 
   useEffect(() => {
@@ -225,69 +235,477 @@ export default function OnlineCourseSection({ courseUrl }) {
   }, [activePhoto, photoTick, isAutoPaused]);
 
   useEffect(() => {
+    const captureZone = stageColumnRef.current;
     const stage = stageRef.current;
-    if (!stage) return;
+    const stage3d = stage3dRef.current;
+    if (!captureZone || !stage || !stage3d) return;
 
     const reducedMq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const finePointerMq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const clamp = (val, min, max) => Math.max(min, Math.min(max, val));
 
-    const resetTilt = () => {
-      stage.style.setProperty('--rx', '2deg');
-      stage.style.setProperty('--ry', '-4.5deg');
-      stage.style.setProperty('--gx', '60%');
-      stage.style.setProperty('--gy', '26%');
-      stage.style.setProperty('--sx', '0px');
-      stage.style.setProperty('--sy', '0px');
+    // Estado físico contínuo (independente da taxa de atualização: 60Hz, 120Hz, 144Hz, 240Hz)
+    const state = {
+      rx: 2,
+      ry: -4.5,
+      gx: 0.2, // [-1, 1] deslocamento do reflexo especular
+      gy: -0.45,
+      lift: 1,
+      glareOpacity: 0.42,
+      rimOpacity: 0.35,
+      rimAngle: 128,
+      orbitDeg: 0,
+      floatY: 0,
+
+      // Interação ativa (mouse, trackpad, caneta ou toque)
+      isPointerActive: false,
+      isTouchActive: false,
+      lastTouchTime: 0,
+      pointerNx: 0,
+      pointerNy: 0,
+      touchReleaseTimer: null,
+
+      // Scroll parallax & giroscópio (mobile/tablet)
+      scrollProgress: 0, // [-1, 1] posição relativa na viewport
+      gyroRx: 0,
+      gyroRy: 0,
+      gyroBaseBeta: null,
+      gyroBaseGamma: null,
+      hasGyro: false,
+
+      // Ciclo de vida do rAF (pausa automaticamente fora da tela ou aba oculta)
+      isVisible: true,
+      isTabVisible: typeof document !== 'undefined' ? document.visibilityState !== 'hidden' : true,
+      rafId: null,
+      lastTime: 0,
     };
 
-    resetTilt();
+    const getCompactFactor = () => {
+      const w = stage.clientWidth || window.innerWidth || 500;
+      return w < 420 ? 0.78 : w < 520 ? 0.88 : 1;
+    };
 
-    const handlePointerMove = event => {
-      if (reducedMq.matches || !finePointerMq.matches) return;
+    const getPlaqueDepth = () => {
+      const w = stage.clientWidth || window.innerWidth || 500;
+      return w < 420 ? 40 : 58;
+    };
+
+    const getOrbitDepth = () => {
+      const w = stage.clientWidth || window.innerWidth || 500;
+      return w < 420 ? -38 : -52;
+    };
+
+    const applyTransforms = () => {
+      const compact = getCompactFactor();
+      const plaqueZ = getPlaqueDepth();
+      const orbitZ = getOrbitDepth();
+
+      // 1. Palco 3D principal (transform direto no nó evita bugs de CSS var herdada em Safari/Firefox/Windows)
+      stage3d.style.transform =
+        `rotateX(${state.rx.toFixed(3)}deg) rotateY(${state.ry.toFixed(3)}deg) scale3d(${state.lift.toFixed(4)}, ${state.lift.toFixed(4)}, 1)`;
+
+      // 2. Sombra volumétrica no plano inferior acompanhando a luz e inclinação
+      const shadowEl = shadowRef.current;
+      if (shadowEl) {
+        const sx = (-state.ry * 2.1 * compact).toFixed(2);
+        const sy = (state.rx * 1.35 * compact).toFixed(2);
+        const ssx = (1 + Math.abs(state.ry) * 0.008).toFixed(4);
+        const ssy = (1 - Math.abs(state.rx) * 0.006).toFixed(4);
+        const sOpacity = clamp(0.88 - (state.lift - 1) * 4.5, 0.55, 1);
+        shadowEl.style.transform = `translate3d(${sx}px, ${sy}px, -72px) scale3d(${ssx}, ${ssy}, 1)`;
+        shadowEl.style.opacity = sOpacity.toFixed(3);
+      }
+
+      // 3. Aro arquitetônico orbital em 3D com contra-paralaxe suave
+      const orbitEl = orbitRef.current;
+      if (orbitEl) {
+        const ox = (-state.ry * 0.9 * compact).toFixed(2);
+        const oy = (state.rx * 0.75 * compact).toFixed(2);
+        orbitEl.style.transform =
+          `translate3d(${ox}px, ${oy}px, ${orbitZ}px) rotateX(68deg) rotateY(-12deg) rotateZ(${state.orbitDeg.toFixed(2)}deg)`;
+      }
+
+      // 4. Placa flutuante em profundidade Z positiva + paralaxe positiva
+      const plaqueEl = plaqueRef.current;
+      if (plaqueEl) {
+        const px = (state.ry * 0.72 * compact).toFixed(2);
+        const py = (-state.rx * 0.55 * compact + state.floatY).toFixed(2);
+        plaqueEl.style.transform = `translate3d(${px}px, ${py}px, ${plaqueZ}px)`;
+      }
+
+      // 5. Brilho especular GPU-only (translate3d em camada dedicada — zero repaint!)
+      const glareEl = glareRef.current;
+      if (glareEl) {
+        const tx = (state.gx * 34).toFixed(2);
+        const ty = (state.gy * 34).toFixed(2);
+        glareEl.style.transform = `translate3d(${tx}%, ${ty}%, 0)`;
+        glareEl.style.opacity = state.glareOpacity.toFixed(3);
+      }
+
+      // 6. Realce luminoso sutil na borda acompanhando a inclinação
+      const rimEl = rimRef.current;
+      if (rimEl) {
+        rimEl.style.opacity = state.rimOpacity.toFixed(3);
+        rimEl.style.transform = `rotate(${state.rimAngle.toFixed(1)}deg)`;
+      }
+    };
+
+    const updateScrollProgress = () => {
+      const rect = stage.getBoundingClientRect();
+      const vh = window.innerHeight || 800;
+      const center = rect.top + rect.height * 0.5;
+      state.scrollProgress = clamp((vh * 0.5 - center) / (vh * 0.75), -1, 1);
+    };
+
+    const stopLoop = () => {
+      if (state.rafId !== null) {
+        window.cancelAnimationFrame(state.rafId);
+        state.rafId = null;
+      }
+    };
+
+    const startLoop = () => {
+      if (state.rafId !== null || !state.isVisible || !state.isTabVisible) return;
+      state.lastTime = 0;
+      state.rafId = window.requestAnimationFrame(tick);
+    };
+
+    const tick = now => {
+      state.rafId = null;
+      if (!state.isVisible || !state.isTabVisible) return;
+
+      const dt = state.lastTime ? Math.min((now - state.lastTime) / 1000, 0.05) : 1 / 60;
+      state.lastTime = now;
+
+      const isReduced = reducedMq.matches;
+      const compact = getCompactFactor();
+      const t = now * 0.001;
+
+      let targetRx;
+      let targetRy;
+      let targetGx;
+      let targetGy;
+      let targetLift;
+      let targetGlareOpacity;
+      let targetRimOpacity;
+      let targetRimAngle;
+      let targetFloatY = 0;
+
+      if (state.isPointerActive) {
+        // Resposta direta e envolvente ao ponteiro (mouse, trackpad, caneta ou toque)
+        const amp = isReduced ? 0.45 : 1;
+        const maxRy = 12.5 * compact * amp;
+        const maxRx = 10 * compact * amp;
+
+        targetRy = state.pointerNx * maxRy;
+        targetRx = -state.pointerNy * maxRx;
+        targetGx = state.pointerNx;
+        targetGy = state.pointerNy;
+        targetLift = isReduced ? 1.005 : state.isTouchActive ? 1.012 : 1.018;
+        targetGlareOpacity = isReduced ? 0.52 : 0.88;
+        targetRimOpacity = isReduced ? 0.4 : 0.82;
+        targetRimAngle = (Math.atan2(state.pointerNy, state.pointerNx) * 180) / Math.PI + 90;
+        targetFloatY = 0;
+      } else if (isReduced) {
+        // Em movimento reduzido, repousa imóvel com leve ângulo editorial
+        targetRx = 1.6;
+        targetRy = -3.4;
+        targetGx = 0.18;
+        targetGy = -0.35;
+        targetLift = 1;
+        targetGlareOpacity = 0.34;
+        targetRimOpacity = 0.25;
+        targetRimAngle = 128;
+        targetFloatY = 0;
+      } else {
+        // Flutuação 3D orgânica (Lissajous suave) + paralaxe de scroll + giroscópio
+        const idleRy = Math.sin(t * 0.85) * 5.2 + Math.cos(t * 0.42) * 1.4 - 1.6;
+        const idleRx = Math.cos(t * 0.68) * 3.2 + 1.4;
+        const scrollRx = state.scrollProgress * 4.2;
+        const scrollRy = state.scrollProgress * 2.0;
+
+        targetRy = clamp((idleRy + scrollRy + state.gyroRy) * compact, -11, 11);
+        targetRx = clamp((idleRx + scrollRx + state.gyroRx) * compact, -9, 9);
+        targetGx = clamp(targetRy / 11, -0.85, 0.85);
+        targetGy = clamp(-targetRx / 9 - 0.15, -0.85, 0.85);
+        targetLift = 1;
+        targetGlareOpacity = 0.48 + Math.sin(t * 0.85) * 0.12;
+        targetRimOpacity = 0.42 + Math.cos(t * 0.68) * 0.1;
+        targetRimAngle = 128 + targetRy * 4.5;
+        targetFloatY = Math.sin(t * 0.92) * -4.2 * compact;
+      }
+
+      // Órbita contínua ultra suave (pausada em reduced-motion)
+      if (!isReduced) {
+        state.orbitDeg = (state.orbitDeg + dt * (state.isPointerActive ? 11 : 7.5)) % 360;
+      }
+
+      // Amortecimento exponencial independente de frame rate
+      const speed = state.isPointerActive ? 11.5 : 4.2;
+      const ease = 1 - Math.exp(-speed * dt);
+
+      state.rx += (targetRx - state.rx) * ease;
+      state.ry += (targetRy - state.ry) * ease;
+      state.gx += (targetGx - state.gx) * ease;
+      state.gy += (targetGy - state.gy) * ease;
+      state.lift += (targetLift - state.lift) * ease;
+      state.glareOpacity += (targetGlareOpacity - state.glareOpacity) * ease;
+      state.rimOpacity += (targetRimOpacity - state.rimOpacity) * ease;
+      state.rimAngle += (targetRimAngle - state.rimAngle) * ease;
+      state.floatY += (targetFloatY - state.floatY) * ease;
+
+      applyTransforms();
+
+      // Em movimento reduzido, para o rAF assim que o card assenta no estado alvo
+      if (isReduced && !state.isPointerActive) {
+        const settled =
+          Math.abs(targetRx - state.rx) < 0.02 &&
+          Math.abs(targetRy - state.ry) < 0.02 &&
+          Math.abs(targetLift - state.lift) < 0.0005;
+        if (settled) {
+          state.rx = targetRx;
+          state.ry = targetRy;
+          state.lift = targetLift;
+          applyTransforms();
+          return;
+        }
+      }
+
+      state.rafId = window.requestAnimationFrame(tick);
+    };
+
+    const updatePointerFromClient = (clientX, clientY, isTouch) => {
       const rect = stage.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
 
-      const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
-      const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+      const nx = clamp(((clientX - rect.left) / rect.width) * 2 - 1, -1, 1);
+      const ny = clamp(((clientY - rect.top) / rect.height) * 2 - 1, -1, 1);
 
-      const rotateY = (px - 0.5) * 15;
-      const rotateX = (0.5 - py) * 12;
-      const shadowX = -(px - 0.5) * 24;
-      const shadowY = -(py - 0.5) * 14;
-
-      if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
-      rafRef.current = window.requestAnimationFrame(() => {
-        stage.style.setProperty('--rx', `${rotateX.toFixed(2)}deg`);
-        stage.style.setProperty('--ry', `${rotateY.toFixed(2)}deg`);
-        stage.style.setProperty('--gx', `${(px * 100).toFixed(1)}%`);
-        stage.style.setProperty('--gy', `${(py * 100).toFixed(1)}%`);
-        stage.style.setProperty('--sx', `${shadowX.toFixed(1)}px`);
-        stage.style.setProperty('--sy', `${shadowY.toFixed(1)}px`);
-      });
+      state.pointerNx = nx;
+      state.pointerNy = ny;
+      state.isPointerActive = true;
+      state.isTouchActive = isTouch;
+      stage.classList.add('is-tilting');
+      startLoop();
     };
 
-    const handlePointerLeave = () => {
-      if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
+    const releasePointer = () => {
+      if (state.touchReleaseTimer) {
+        window.clearTimeout(state.touchReleaseTimer);
+        state.touchReleaseTimer = null;
+      }
+      state.isPointerActive = false;
+      state.isTouchActive = false;
       stage.classList.remove('is-tilting');
       setIsStageHovered(false);
-      resetTilt();
+      startLoop();
     };
 
-    const handlePointerEnter = () => {
+    // Eventos universais: funciona em mouse, trackpad, laptop touchscreen, caneta, celular/tablet e WebViews (Instagram/WhatsApp)
+    const handlePointerMove = event => {
+      const isTouch = event.pointerType === 'touch';
+      if (isTouch) {
+        state.lastTouchTime = performance.now();
+      } else {
+        setIsStageHovered(true);
+      }
+      updatePointerFromClient(event.clientX, event.clientY, isTouch);
+    };
+
+    const handlePointerDown = event => {
+      if (event.target && event.target.closest && event.target.closest('button')) return;
+      const isTouch = event.pointerType === 'touch';
+      if (isTouch) state.lastTouchTime = performance.now();
+      if (state.touchReleaseTimer) {
+        window.clearTimeout(state.touchReleaseTimer);
+        state.touchReleaseTimer = null;
+      }
+      updatePointerFromClient(event.clientX, event.clientY, isTouch);
+    };
+
+    const handlePointerUpOrCancel = event => {
+      if (event.pointerType === 'touch') {
+        state.lastTouchTime = performance.now();
+        if (state.touchReleaseTimer) window.clearTimeout(state.touchReleaseTimer);
+        state.touchReleaseTimer = window.setTimeout(() => {
+          state.isPointerActive = false;
+          state.isTouchActive = false;
+          stage.classList.remove('is-tilting');
+          startLoop();
+        }, 260);
+      }
+    };
+
+    const handlePointerLeave = event => {
+      if (event.pointerType === 'touch') return;
+      releasePointer();
+    };
+
+    // Fallback clássico de mouse (cobre qualquer ambiente onde pointermove não dispare, ex.: acesso remoto/VMs)
+    const handleMouseMove = event => {
+      if (state.isTouchActive || performance.now() - state.lastTouchTime < 500) return;
       setIsStageHovered(true);
-      if (reducedMq.matches || !finePointerMq.matches) return;
-      stage.classList.add('is-tilting');
+      updatePointerFromClient(event.clientX, event.clientY, false);
     };
 
-    stage.addEventListener('pointerenter', handlePointerEnter);
-    stage.addEventListener('pointermove', handlePointerMove);
-    stage.addEventListener('pointerleave', handlePointerLeave);
+    const handleMouseLeave = () => {
+      if (state.isTouchActive || performance.now() - state.lastTouchTime < 500) return;
+      releasePointer();
+    };
+
+    // Fallback de toque passivo (garante resposta fluida também em iOS Safari / Instagram / WhatsApp sem bloquear scroll)
+    const handleTouchStart = event => {
+      if (!event.touches || !event.touches.length) return;
+      if (event.target && event.target.closest && event.target.closest('button')) return;
+      state.lastTouchTime = performance.now();
+      if (state.touchReleaseTimer) {
+        window.clearTimeout(state.touchReleaseTimer);
+        state.touchReleaseTimer = null;
+      }
+      const touch = event.touches[0];
+      updatePointerFromClient(touch.clientX, touch.clientY, true);
+    };
+
+    const handleTouchMove = event => {
+      if (!event.touches || !event.touches.length) return;
+      state.lastTouchTime = performance.now();
+      const touch = event.touches[0];
+      updatePointerFromClient(touch.clientX, touch.clientY, true);
+    };
+
+    const handleTouchEnd = () => {
+      state.lastTouchTime = performance.now();
+      if (state.touchReleaseTimer) window.clearTimeout(state.touchReleaseTimer);
+      state.touchReleaseTimer = window.setTimeout(() => {
+        state.isPointerActive = false;
+        state.isTouchActive = false;
+        stage.classList.remove('is-tilting');
+        startLoop();
+      }, 260);
+    };
+
+    // Giroscópio suave em celulares/tablets que expõem DeviceOrientation sem prompt bloqueante
+    const handleDeviceOrientation = event => {
+      if (reducedMq.matches || state.isPointerActive) return;
+      if (typeof event.beta !== 'number' || typeof event.gamma !== 'number') return;
+
+      if (state.gyroBaseBeta === null) {
+        state.gyroBaseBeta = event.beta;
+        state.gyroBaseGamma = event.gamma;
+      }
+      const deltaBeta = clamp(event.beta - state.gyroBaseBeta, -28, 28);
+      const deltaGamma = clamp(event.gamma - state.gyroBaseGamma, -28, 28);
+
+      state.hasGyro = true;
+      state.gyroRx = (deltaBeta / 28) * -5.5;
+      state.gyroRy = (deltaGamma / 28) * 6.5;
+    };
+
+    const handleScroll = () => {
+      updateScrollProgress();
+    };
+
+    const handleVisibility = () => {
+      state.isTabVisible = document.visibilityState !== 'hidden';
+      if (state.isTabVisible && state.isVisible) {
+        startLoop();
+      } else {
+        stopLoop();
+      }
+    };
+
+    const handleReducedChange = () => {
+      if (reducedMq.matches) {
+        state.gyroRx = 0;
+        state.gyroRy = 0;
+      }
+      startLoop();
+    };
+
+    let observer = null;
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          state.isVisible = entry.isIntersecting;
+          if (state.isVisible) {
+            updateScrollProgress();
+            startLoop();
+          } else {
+            stopLoop();
+          }
+        },
+        { rootMargin: '120px 0px' },
+      );
+      observer.observe(stage);
+    }
+
+    const supportsPointer = 'PointerEvent' in window;
+    if (supportsPointer) {
+      captureZone.addEventListener('pointermove', handlePointerMove, { passive: true });
+      captureZone.addEventListener('pointerdown', handlePointerDown, { passive: true });
+      captureZone.addEventListener('pointerup', handlePointerUpOrCancel, { passive: true });
+      captureZone.addEventListener('pointercancel', handlePointerUpOrCancel, { passive: true });
+      captureZone.addEventListener('pointerleave', handlePointerLeave);
+    }
+    captureZone.addEventListener('mousemove', handleMouseMove, { passive: true });
+    captureZone.addEventListener('mouseleave', handleMouseLeave);
+    captureZone.addEventListener('touchstart', handleTouchStart, { passive: true });
+    captureZone.addEventListener('touchmove', handleTouchMove, { passive: true });
+    captureZone.addEventListener('touchend', handleTouchEnd, { passive: true });
+    captureZone.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    // Só ativa listener de deviceorientation quando disponível sem necessidade de permissão explícita bloqueante
+    const canListenGyro =
+      'DeviceOrientationEvent' in window &&
+      typeof window.DeviceOrientationEvent.requestPermission !== 'function';
+    if (canListenGyro) {
+      window.addEventListener('deviceorientation', handleDeviceOrientation, { passive: true });
+    }
+
+    if (reducedMq.addEventListener) {
+      reducedMq.addEventListener('change', handleReducedChange);
+    } else {
+      reducedMq.addListener(handleReducedChange);
+    }
+
+    updateScrollProgress();
+    applyTransforms();
+    startLoop();
 
     return () => {
-      if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
-      stage.removeEventListener('pointerenter', handlePointerEnter);
-      stage.removeEventListener('pointermove', handlePointerMove);
-      stage.removeEventListener('pointerleave', handlePointerLeave);
+      stopLoop();
+      if (state.touchReleaseTimer) window.clearTimeout(state.touchReleaseTimer);
+      observer?.disconnect();
+
+      if (supportsPointer) {
+        captureZone.removeEventListener('pointermove', handlePointerMove);
+        captureZone.removeEventListener('pointerdown', handlePointerDown);
+        captureZone.removeEventListener('pointerup', handlePointerUpOrCancel);
+        captureZone.removeEventListener('pointercancel', handlePointerUpOrCancel);
+        captureZone.removeEventListener('pointerleave', handlePointerLeave);
+      }
+      captureZone.removeEventListener('mousemove', handleMouseMove);
+      captureZone.removeEventListener('mouseleave', handleMouseLeave);
+      captureZone.removeEventListener('touchstart', handleTouchStart);
+      captureZone.removeEventListener('touchmove', handleTouchMove);
+      captureZone.removeEventListener('touchend', handleTouchEnd);
+      captureZone.removeEventListener('touchcancel', handleTouchEnd);
+
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      if (canListenGyro) {
+        window.removeEventListener('deviceorientation', handleDeviceOrientation);
+      }
+
+      if (reducedMq.removeEventListener) {
+        reducedMq.removeEventListener('change', handleReducedChange);
+      } else {
+        reducedMq.removeListener(handleReducedChange);
+      }
     };
   }, []);
 
@@ -378,14 +796,14 @@ export default function OnlineCourseSection({ courseUrl }) {
 
       <div className="course-main-grid">
         {/* ── Pilha Fotográfica 3D Interativa ── */}
-        <div className="course-stage-column" data-reveal="left">
+        <div className="course-stage-column" data-reveal="left" ref={stageColumnRef}>
           <div className="course-stage-scene" ref={stageRef}>
-            <div className="course-stage-3d">
+            <div className="course-stage-3d" ref={stage3dRef}>
               {/* Aro arquitetônico dourado inclinado em 3D */}
-              <div className="course-orbit" aria-hidden="true" />
+              <div className="course-orbit" ref={orbitRef} aria-hidden="true" />
 
               {/* Sombra volumétrica que acompanha a inclinação */}
-              <div className="course-floor-shadow" aria-hidden="true" />
+              <div className="course-floor-shadow" ref={shadowRef} aria-hidden="true" />
 
               {/* Pilha física de 3 cartões fotográficos em camadas Z */}
               <div
@@ -459,7 +877,16 @@ export default function OnlineCourseSection({ courseUrl }) {
                         />
                       )}
                       <div className="course-stack-overlay" aria-hidden="true" />
-                      {relPos === 0 && <div className="course-stack-glare" aria-hidden="true" />}
+                      {relPos === 0 && (
+                        <>
+                          <div className="course-stack-glare" aria-hidden="true">
+                            <span className="course-stack-glare-spot" ref={glareRef} />
+                          </div>
+                          <div className="course-stack-rim" aria-hidden="true">
+                            <span className="course-stack-rim-light" ref={rimRef} />
+                          </div>
+                        </>
+                      )}
 
                       <figcaption className="course-stack-content">
                         <div className="course-stack-top">
@@ -536,7 +963,7 @@ export default function OnlineCourseSection({ courseUrl }) {
               </div>
 
               {/* Placa flutuante única em profundidade Z com marca e credenciais reais */}
-              <div className="course-float-plaque" aria-hidden="true">
+              <div className="course-float-plaque" ref={plaqueRef} aria-hidden="true">
                 <span className="course-plaque-mark">
                   <img src="/images/gx-mark.webp" width="26" height="32" alt="" />
                 </span>

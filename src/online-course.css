@@ -133,34 +133,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .course-stage-scene {
-  --rx: 2deg;
-  --ry: -4.5deg;
-  --gx: 60%;
-  --gy: 26%;
-  --sx: 0px;
-  --sy: 0px;
   position: relative;
   width: 100%;
   max-width: 540px;
   padding: 26px 30px 72px 24px;
-  perspective: 1300px;
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
   perspective-origin: 50% 48%;
+  -webkit-perspective-origin: 50% 48%;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .course-stage-3d {
   position: relative;
   width: 100%;
   transform-style: preserve-3d;
-  transform: rotateX(var(--rx)) rotateY(var(--ry));
-  transition: transform 640ms var(--easing-expo);
+  -webkit-transform-style: preserve-3d;
+  transform: rotateX(2deg) rotateY(-4.5deg) scale3d(1, 1, 1);
   will-change: transform;
-}
-
-.course-stage-scene.is-tilting .course-stage-3d {
-  transition: transform 130ms ease-out;
 }
 
 /* ── Aro Arquitetônico Dourado em 3D ─────────── */
@@ -173,10 +168,12 @@
   margin-left: -57%;
   margin-top: -57%;
   border-radius: 50%;
-  border: 1px solid rgba(207, 163, 207, 0.52);
+  border: 1px solid rgba(207, 163, 207, 0.56);
   pointer-events: none;
   transform-style: preserve-3d;
-  transform: translateZ(-54px) rotateX(68deg) rotateY(-12deg);
+  -webkit-transform-style: preserve-3d;
+  transform: translate3d(0, 0, -52px) rotateX(68deg) rotateY(-12deg) rotateZ(0deg);
+  will-change: transform;
 }
 
 .course-orbit::after {
@@ -184,11 +181,12 @@
   position: absolute;
   top: -4px;
   left: 50%;
-  width: 7px;
-  height: 7px;
-  margin-left: -3.5px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
   border-radius: 50%;
   background: var(--gold-ink);
+  box-shadow: 0 0 12px rgba(207, 163, 207, 0.78);
 }
 
 /* ── Sombra Volumétrica no Plano Inferior ────── */
@@ -201,18 +199,14 @@
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    rgba(46, 28, 46, 0.25) 0%,
-    rgba(46, 28, 46, 0.1) 50%,
+    rgba(46, 28, 46, 0.28) 0%,
+    rgba(46, 28, 46, 0.11) 50%,
     transparent 76%
   );
   filter: blur(13px);
   pointer-events: none;
-  transform: translateZ(-70px) translate3d(var(--sx), var(--sy), 0);
-  transition: transform 420ms var(--easing-expo);
-}
-
-.course-stage-scene.is-tilting .course-floor-shadow {
-  transition: transform 130ms ease-out;
+  transform: translate3d(0, 0, -72px);
+  will-change: transform, opacity;
 }
 
 /* ── Pilha de 3 Cartões Fotográficos em Z Real ── */
@@ -221,6 +215,7 @@
   width: 100%;
   aspect-ratio: 0.82;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
 .course-stack-card {
@@ -230,25 +225,33 @@
   overflow: hidden;
   background: var(--cocoa);
   color: var(--paper);
-  border: 1px solid rgba(220, 186, 219, 0.4);
+  border: 1px solid rgba(220, 186, 219, 0.42);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   transition:
     transform 720ms var(--easing-expo),
     opacity 540ms ease,
-    box-shadow 640ms ease,
+    box-shadow 480ms ease,
     filter 540ms ease;
 }
 
 .course-stack-card.is-front {
   z-index: 3;
-  transform: translate3d(0, 0, 26px) rotateZ(0deg);
+  transform: translate3d(0, 0, 24px) rotateZ(0deg);
   opacity: 1;
   box-shadow:
     0 28px 66px rgba(46, 28, 46, 0.24),
-    0 1px 0 rgba(250, 246, 250, 0.18) inset;
-  cursor: default;
+    0 1px 0 rgba(250, 246, 250, 0.2) inset;
+  cursor: grab;
+}
+
+.course-stage-scene.is-tilting .course-stack-card.is-front {
+  box-shadow:
+    0 36px 82px rgba(46, 28, 46, 0.3),
+    0 1px 0 rgba(250, 246, 250, 0.28) inset;
 }
 
 .course-stack-card.is-mid {
@@ -398,19 +401,71 @@
 .course-stack-glare {
   position: absolute;
   inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: inherit;
   pointer-events: none;
+}
+
+.course-stack-glare-spot {
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 180%;
+  height: 180%;
   background: radial-gradient(
-    circle 360px at var(--gx) var(--gy),
-    rgba(250, 246, 250, 0.2) 0%,
-    rgba(220, 186, 219, 0.08) 38%,
-    transparent 70%
+    circle at 50% 50%,
+    rgba(255, 252, 255, 0.26) 0%,
+    rgba(232, 209, 231, 0.13) 26%,
+    rgba(207, 163, 207, 0.04) 48%,
+    transparent 68%
   );
   mix-blend-mode: screen;
+  opacity: 0.45;
+  will-change: transform, opacity;
+}
+
+/* Realce especular fino na borda do cartão (acabamento editorial de luxo) */
+.course-stack-rim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  overflow: hidden;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.course-stack-rim-light {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 35deg,
+    rgba(250, 246, 250, 0.62) 82deg,
+    rgba(232, 209, 231, 0.42) 118deg,
+    transparent 170deg,
+    transparent 360deg
+  );
+  opacity: 0.35;
+  will-change: transform, opacity;
 }
 
 .course-stack-content {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -604,13 +659,17 @@
   gap: 18px;
   padding: 16px 22px;
   border-radius: 20px;
-  background: rgba(250, 246, 250, 0.96);
-  border: 1px solid rgba(207, 163, 207, 0.52);
+  background: rgba(250, 246, 250, 0.98);
+  border: 1px solid rgba(207, 163, 207, 0.56);
   color: var(--cocoa);
-  box-shadow: 0 22px 48px rgba(46, 28, 46, 0.18);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  transform: translateZ(64px);
+  box-shadow:
+    0 22px 48px rgba(46, 28, 46, 0.19),
+    0 4px 12px rgba(46, 28, 46, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translate3d(0, 0, 58px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
   pointer-events: none;
 }
 
@@ -1017,37 +1076,8 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ANIMAÇÕES SUAVES (Condicionadas a prefers-reduced-motion)
+   HOVER EM PONTEIRO FINO (Micro-interações complementares)
    ═══════════════════════════════════════════════════════════ */
-@keyframes course-orbit-spin {
-  from {
-    transform: translateZ(-54px) rotateX(68deg) rotateY(-12deg) rotateZ(0deg);
-  }
-  to {
-    transform: translateZ(-54px) rotateX(68deg) rotateY(-12deg) rotateZ(360deg);
-  }
-}
-
-@keyframes course-plaque-float {
-  0%,
-  100% {
-    transform: translateZ(64px) translateY(0px);
-  }
-  50% {
-    transform: translateZ(64px) translateY(-5px);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .course-orbit {
-    animation: course-orbit-spin 46s linear infinite;
-  }
-  .course-float-plaque {
-    animation: course-plaque-float 7s ease-in-out infinite;
-  }
-}
-
-/* ── Hover em Ponteiro Fino ──────────────────── */
 @media (hover: hover) and (pointer: fine) {
   .course-stack-card.is-mid:hover {
     transform: translate3d(32px, -20px, -14px) rotateZ(4deg) scale(0.97);
@@ -1147,33 +1177,45 @@
     border-bottom: none;
   }
   .course-stage-scene {
-    padding: 8px 0 0;
+    max-width: 440px;
+    padding: 20px 18px 66px 14px;
+    perspective: 1050px;
+    -webkit-perspective: 1050px;
   }
-  .course-stage-3d {
-    transform: none;
+  .course-orbit {
+    width: 108%;
+    margin-left: -54%;
+    margin-top: -54%;
   }
-  .course-orbit,
   .course-floor-shadow {
-    display: none;
+    bottom: -52px;
+    height: 36px;
+    filter: blur(11px);
   }
   .course-card-stack {
-    aspect-ratio: 0.82;
+    aspect-ratio: 0.76;
+    min-height: 416px;
+  }
+  .course-stack-card {
+    border-radius: 22px;
   }
   .course-stack-card.is-front {
-    transform: none;
+    transform: translate3d(0, 0, 20px) rotateZ(0deg);
   }
-  .course-stack-card.is-mid,
+  .course-stack-card.is-mid {
+    transform: translate3d(13px, -10px, -12px) rotateZ(2.6deg) scale(0.96);
+  }
   .course-stack-card.is-back {
-    display: none;
+    transform: translate3d(-10px, -15px, -30px) rotateZ(-2.2deg) scale(0.92);
   }
   .course-stack-content {
-    padding: 18px 18px 20px;
+    padding: 18px 18px 34px;
   }
   .course-stack-bottom {
     gap: 8px;
   }
   .course-stack-title {
-    font-size: clamp(27px, 7.2vw, 34px);
+    font-size: clamp(26px, 7vw, 34px);
   }
   .course-stack-bottom p {
     font-size: 14.5px;
@@ -1186,25 +1228,34 @@
     font-size: 20px;
   }
   .course-float-plaque {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    margin-top: 14px;
-    padding: 15px 16px;
-    gap: 14px;
-    transform: none;
-    animation: none;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: -44px;
+    padding: 12px 15px;
+    gap: 12px;
+    border-radius: 16px;
+    transform: translate3d(0, 0, 40px);
   }
   .course-plaque-mark {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
+  }
+  .course-plaque-mark img {
+    width: 18px;
+    height: 22px;
+  }
+  .course-plaque-stats {
+    gap: 8px;
   }
   .course-plaque-stats strong {
-    font-size: 24px;
+    font-size: 21px;
   }
   .course-plaque-stats span {
-    font-size: 12px;
+    font-size: 11px;
+  }
+  .course-plaque-sep {
+    height: 24px;
   }
   .course-module-trigger {
     padding: 18px 16px;
@@ -1248,19 +1299,27 @@
 }
 
 @media (max-width: 400px) {
+  .course-stage-scene {
+    padding: 16px 14px 60px 12px;
+  }
+  .course-card-stack {
+    min-height: 392px;
+  }
   .course-plaque-mark {
     display: none;
   }
   .course-plaque-stats {
     justify-content: space-between;
   }
+  .course-plaque-stats strong {
+    font-size: 19px;
+  }
+  .course-plaque-stats span {
+    font-size: 10.5px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .course-stage-3d,
-  .course-floor-shadow,
-  .course-float-plaque,
-  .course-orbit,
   .course-photo-layer,
   .course-photo-sheen,
   .course-photo-bar-fill {
@@ -1268,7 +1327,6 @@
     animation: none !important;
     clip-path: none !important;
   }
-  .course-orbit,
   .course-photo-sheen {
     display: none;
   }
